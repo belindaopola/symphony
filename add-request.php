@@ -1,72 +1,100 @@
 <?php include('partials/menu.php'); ?>
 
-<section class="product-search">
-    <div class="container">    
-        <h2 class="text-center text-white">Create New CSR</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New CSR</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<section class="main-content">
+    <div class="wrapper">    
+        <h1 class="text-center row mb-4">Create New CSR</h1>
 
         <?php 
-            if(isset($_SESSION['add'])) //Checking whether the Session is Set of Not
+            if(isset($_SESSION['add'])) // Checking whether the Session is Set of Not
             {
-                echo $_SESSION['add']; //Display the SEssion Message if SEt
-                unset($_SESSION['add']); //Remove Session Message
+                echo $_SESSION['add']; // Display the Session Message if Set
+                unset($_SESSION['add']); // Remove Session Message
             }
         ?>
 
         <form action="" method="POST" class="request" enctype="multipart/form-data">
                     
-            <fieldset>
-                <legend>CSR Details</legend>
-
-                <div class="request-label">Customer Name</div>
-                <input type="text" name="customer_name" placeholder="Enter Customer Name" class="input-responsive" required>
-
-                <div class="request-label">Product Description</div>
-                <input type="text" name="description" placeholder="Commissioning of SG Series" class="input-responsive" required>
-
-                <div class="request-label">Add Quotation</div>
-                <input type="file" name="quotation" placeholder="Attachment" class="input-responsive" required>
-
-                <div class="request-label">Add Customer's PO</div>
-                <input type="file" name="customer_po" placeholder="Attachment" class="input-responsive" required>
-
-                <div class="request-label">Add Costing Sheet</div>
-                <input type="file" name="costing_sheet" placeholder="Attachment" class="input-responsive" required>
-
-                <div class="request-label">Currency</div>
-                <select name="currency">
-                        <option value="KES">KES</option>
-                        <option value="USD">USD</option>
-                        <option value="EUR">EUR</option>
-                    </select>
-
-                <div class="request-label">Price</div>
-                <input type="number" name="price" placeholder="Price" class="input-responsive" required>
-
-                <div class="request-label">Enter VAT Amount</div>
-                <input type="number" name="vat" placeholder="VAT Amount" class="input-responsive" required>
-
-
-                <div class="request-label">Status</div>
-                <select name="status">
-                            <option value="Pending">Pending</option>
-                            <option value="Approved">Approved</option>
-                            <option value="Delivered">Delivered</option>
-                            <option value="Cancelled">Cancelled</option>
-                        </select>
-
-                <div class="request-label">Sales Person</div>
-                <input type="text" name="salesperson" placeholder="Name of Sales Person" class="input-responsive" required>
-
-                <input type="submit" name="submit" value="Submit CSR" class="btn btn-primary">
-            </fieldset>
-
-        </form>
-
-
+        <div class="row mb-4">
+            <label for="customerName" class="col-sm-3 col-form-label">Customer Name:</label>
+            <div class="col-sm-5">
+            <input type="text" id="customer-name" placeholder="Customer Name" class="form-control">
+            </div>
         </div>
-
-        
-        </section>    
+        <div class="row mb-4">
+            <label for="productDescription" class="col-sm-3 col-form-label">Product Description:</label>
+            <div class="col-sm-5">
+            <input type="text" id="product-description" placeholder="Product Description" class="form-control">
+            </div>
+        </div>
+        <div class="row mb-4">
+            <label for="quotation" class="col-sm-3 col-form-label">Add Quotation:</label>
+            <div class="col-sm-5">
+            <input type="file" id="quotation"  class="form-control">
+            </div>
+        </div>
+        <div class="row mb-4">
+            <label for="customerPO" class="col-sm-3 col-form-label">Add Customer's PO:</label>
+            <div class="col-sm-5">
+            <input type="file" id="customer-po"  class="form-control">
+            </div>
+        </div>
+        <div class="row mb-4">
+            <label for="costingSheet" class="col-sm-3 col-form-label">Add Costing Sheet:</label>
+            <div class="col-sm-5">
+            <input type="file" id="costing-sheet"  class="form-control">
+            </div>
+        </div>
+        <div class="row mb-4">
+            <label for="currency" class="col-sm-3 col-form-label">Currency:</label>
+            <div class="col-sm-5">
+            <select name="currency">
+                <option value="KES">KES</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+            </select>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <label for="price" class="col-sm-3 col-form-label">Price:</label>
+            <div class="col-sm-5">
+            <input type="number" id="price" placeholder="Enter Price" class="form-control">
+            </div>
+        </div>
+        <div class="row mb-4">
+            <label for="vat" class="col-sm-3 col-form-label">Enter VAT Amount:</label>
+            <div class="col-sm-5">
+            <input type="number" id="vat" placeholder="Enter VAT Amount" class="form-control">
+            </div>
+        </div>
+        <div class="row mb-4">
+            <label for="status" class="col-sm-3 col-form-label">Status:</label>
+            <div class="col-sm-5">
+            <select name="status">
+                <option value="Pending">Pending</option>
+                <option value="Approved">Approved</option>
+                <option value="Delivered">Delivered</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <label for="salesPerson" class="col-sm-3 col-form-label">Sales Person:</label>
+            <div class="col-sm-5">
+            <input type="text" id="sales-person" placeholder="Sales Person" class="form-control">
+            </div>
+        </div>
+            <input type="submit" name="submit" value="Submit CSR" class="btn btn-primary col-sm-1">
+        </form>
+        </div>        
     </section>
     <div class="clearfix"></div>
 
@@ -181,3 +209,5 @@
             
             }
             ?>
+</body>
+</html>
