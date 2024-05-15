@@ -1,160 +1,162 @@
 <?php include('partials/menu.php'); ?>
 
-<div class="main-content">
-    <div class="wrapper">
-        <h1>Manage section</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Section</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <div class="main-content">
+        <div class="wrapper">
+            <h1 class="row mb-4">Manage Section</h1>
+    
+            <?php 
+                if(isset($_SESSION['add']))
+                {
+                    echo $_SESSION['add'];
+                    unset($_SESSION['add']);
+                }
+    
+                if(isset($_SESSION['remove']))
+                {
+                    echo $_SESSION['remove'];
+                    unset($_SESSION['remove']);
+                }
+    
+                if(isset($_SESSION['delete']))
+                {
+                    echo $_SESSION['delete'];
+                    unset($_SESSION['delete']);
+                }
+    
+                if(isset($_SESSION['no-section-found']))
+                {
+                    echo $_SESSION['no-section-found'];
+                    unset($_SESSION['no-section-found']);
+                }
+    
+                if(isset($_SESSION['update']))
+                {
+                    echo $_SESSION['update'];
+                    unset($_SESSION['update']);
+                }
+    
+                if(isset($_SESSION['upload']))
+                {
+                    echo $_SESSION['upload'];
+                    unset($_SESSION['upload']);
+                }
+    
+                if(isset($_SESSION['failed-remove']))
+                {
+                    echo $_SESSION['failed-remove'];
+                    unset($_SESSION['failed-remove']);
+                }
+            ?>
+           
+    
+            <!-- Button to Add Admin -->
+            <a href="<?php echo SITEURL; ?>add-section.php" class="btn btn-primary col-sm-1 row mb-4">Add section</a>
 
-        <br /><br />
-        <?php 
-        
-            if(isset($_SESSION['add']))
-            {
-                echo $_SESSION['add'];
-                unset($_SESSION['add']);
-            }
 
-            if(isset($_SESSION['remove']))
-            {
-                echo $_SESSION['remove'];
-                unset($_SESSION['remove']);
-            }
+            <table class="tbl-full">
+                <tr>
+                    <th>S.N.</th>
+                    <th>Type</th>
+                    <th>Image</th>
+                    <th>Featured</th>
+                    <th>Active</th>
+                    <th>Actions</th>
+                </tr>
 
-            if(isset($_SESSION['delete']))
-            {
-                echo $_SESSION['delete'];
-                unset($_SESSION['delete']);
-            }
+                <?php 
 
-            if(isset($_SESSION['no-section-found']))
-            {
-                echo $_SESSION['no-section-found'];
-                unset($_SESSION['no-section-found']);
-            }
+                    //Query to Get all CAtegories from Database
+                    $sql = "SELECT * FROM tbl_section";
 
-            if(isset($_SESSION['update']))
-            {
-                echo $_SESSION['update'];
-                unset($_SESSION['update']);
-            }
+                    //Execute Query
+                    $res = mysqli_query($conn, $sql);
 
-            if(isset($_SESSION['upload']))
-            {
-                echo $_SESSION['upload'];
-                unset($_SESSION['upload']);
-            }
+                    //Count Rows
+                    $count = mysqli_num_rows($res);
 
-            if(isset($_SESSION['failed-remove']))
-            {
-                echo $_SESSION['failed-remove'];
-                unset($_SESSION['failed-remove']);
-            }
-        
-        ?>
-        <br><br>
+                    //Create Serial Number Variable and assign value as 1
+                    $sn=1;
 
-                <!-- Button to Add Admin -->
-                <a href="<?php echo SITEURL; ?>add-section.php" class="btn-primary">Add section</a>
-
-                <br /><br /><br />
-
-                <table class="tbl-full">
-                    <tr>
-                        <th>S.N.</th>
-                        <th>Type</th>
-                        <th>Image</th>
-                        <th>Featured</th>
-                        <th>Active</th>
-                        <th>Actions</th>
-                    </tr>
-
-                    <?php 
-
-                        //Query to Get all CAtegories from Database
-                        $sql = "SELECT * FROM tbl_section";
-
-                        //Execute Query
-                        $res = mysqli_query($conn, $sql);
-
-                        //Count Rows
-                        $count = mysqli_num_rows($res);
-
-                        //Create Serial Number Variable and assign value as 1
-                        $sn=1;
-
-                        //Check whether we have data in database or not
-                        if($count>0)
+                    //Check whether we have data in database or not
+                    if($count>0)
+                    {
+                        //We have data in database
+                        //get the data and display
+                        while($row=mysqli_fetch_assoc($res))
                         {
-                            //We have data in database
-                            //get the data and display
-                            while($row=mysqli_fetch_assoc($res))
-                            {
-                                $id = $row['id'];
-                                $title = $row['title'];
-                                $image_name = $row['image_name'];
-                                $featured = $row['featured'];
-                                $active = $row['active'];
+                            $id = $row['id'];
+                            $title = $row['title'];
+                            $image_name = $row['image_name'];
+                            $featured = $row['featured'];
+                            $active = $row['active'];
 
-                                ?>
-
-                                    <tr>
-                                        <td><?php echo $sn++; ?>. </td>
-                                        <td><?php echo $title; ?></td>
-
-                                        <td>
-
-                                            <?php  
-                                                //Chcek whether image name is available or not
-                                                if($image_name!="")
-                                                {
-                                                    //Display the Image
-                                                    ?>
-                                                    
-                                                    <img src="<?php echo SITEURL; ?>images/section/<?php echo $image_name; ?>" width="100px" >
-                                                    
-                                                    <?php
-                                                }
-                                                else
-                                                {
-                                                    //DIsplay the MEssage
-                                                    echo "<div class='error'>Image not Added.</div>";
-                                                }
-                                            ?>
-
-                                        </td>
-
-                                        <td><?php echo $featured; ?></td>
-                                        <td><?php echo $active; ?></td>
-                                        <td>
-                                            <a href="<?php echo SITEURL; ?>update-section.php?id=<?php echo $id; ?>" class="btn-secondary">Update section</a>
-                                            <a href="<?php echo SITEURL; ?>delete-section.php?id=<?php echo $id; ?>&image_name=<?php echo $image_name; ?>" class="btn-danger">Delete section</a>
-                                        </td>
-                                    </tr>
-
-                                <?php
-
-                            }
-                        }
-                        else
-                        {
-                            //WE do not have data
-                            //We'll display the message inside table
                             ?>
 
-                            <tr>
-                                <td colspan="6"><div class="error">No section Added.</div></td>
-                            </tr>
+                                <tr>
+                                    <td><?php echo $sn++; ?>. </td>
+                                    <td><?php echo $title; ?></td>
+
+                                    <td>
+
+                                        <?php  
+                                            //Chcek whether image name is available or not
+                                            if($image_name!="")
+                                            {
+                                                //Display the Image
+                                                ?>
+                                                
+                                                <img src="<?php echo SITEURL; ?>images/section/<?php echo $image_name; ?>" width="100px" >
+                                                
+                                                <?php
+                                            }
+                                            else
+                                            {
+                                                //DIsplay the MEssage
+                                                echo "<div class='error'>Image not Added.</div>";
+                                            }
+                                        ?>
+
+                                    </td>
+
+                                    <td><?php echo $featured; ?></td>
+                                    <td><?php echo $active; ?></td>
+                                    <td>
+                                        <a href="<?php echo SITEURL; ?>update-section.php?id=<?php echo $id; ?>" class="btn btn-secondary col-sm-2.5">Update section</a>
+                                        <a href="<?php echo SITEURL; ?>delete-section.php?id=<?php echo $id; ?>&image_name=<?php echo $image_name; ?>" class="btn btn-danger col-sm-2.5">Delete section</a>
+                                    </td>
+                                </tr>
 
                             <?php
                         }
-                    
-                    ?>
+                    }
+                    else
+                    {
+                        // We do not have data
+                        // Display the message inside table
+                        ?>
 
-                    
+                        <tr>
+                            <td colspan="6"><div class="error">No section Added.</div></td>
+                        </tr>
 
-                    
-                </table>
+                        <?php
+                    }
+                ?>
+                
+            </table>
+        </div>
     </div>
     
-</div>
-
-<?php include('partials/footer.php'); ?>
+    <?php include('partials/footer.php'); ?>
+    
+</body>
+</html>
