@@ -1,10 +1,17 @@
 <?php include('partials/menu.php'); ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Customer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
 <div class="main-content">
     <div class="wrapper">
-        <h1>Add Customer</h1>
-
-        <br><br>
+        <h1 class="row mb-4">Add Customer</h1>
 
         <?php 
             if(isset($_SESSION['upload']))
@@ -15,61 +22,55 @@
         ?>
 
         <form action="" method="POST" enctype="multipart/form-data">
-        
-            <table class="tbl-30">
-
-                <tr>
-                    <td>Customer Name: </td>
-                    <td>
-                        <input type="text" name="name" placeholder="Enter name of customer">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Contact: </td>
-                    <td>
-                        <input type="text" name="contact" placeholder="+254700000000">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Email: </td>
-                    <td>
-                        <input type="email" name="email">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Address: </td>
-                    <td>
-                        <textarea name="address" cols="30" rows="5" placeholder="The Crescent Business Centre, Off Parklands Road"></textarea>
-                    </td>
-                </tr>
-            
-                <tr>
-                    <td>Featured: </td>
-                    <td>
-                        <input type="radio" name="featured" value="Yes"> Yes 
-                        <input type="radio" name="featured" value="No"> No
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Active: </td>
-                    <td>
-                        <input type="radio" name="active" value="Yes"> Yes 
-                        <input type="radio" name="active" value="No"> No
-                    </td>
-                </tr>
-
-                <tr>
-                    <td colspan="2">
-                        <input type="submit" name="submit" value="Add Customer" class="btn-secondary">
-                    </td>
-                </tr>
-
-            </table>
-
+            <div class="row mb-4">
+                <label for="inputCustomerName" class="col-sm-1 col-form-label">Customer Name:</label>
+                <div class="col-sm-3"> 
+                <input type="text" id="customer-name" name="customer_name" placeholder="Enter Customer Name" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-4">
+            <label for="InputContact" class="col-sm-1 col-form-label">Contact:</label>
+                <div class="col-sm-3">
+                <input type="text" id="contact" name="contact" placeholder="Enter Customer Contact" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-4">
+            <label for="InputEmail" class="col-sm-1 col-form-label">Email:</label>
+                <div class="col-sm-3">
+                <input type="email" id="email" name="email" placeholder="Enter Customer Email" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-4">
+            <label for="InputAddress" class="col-sm-1 col-form-label">Address:</label>
+                <div class="col-sm-3">
+                <textarea type="text" id="address" name="address" placeholder="Enter Customer Address" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="row mb-4">
+            <label for="inputPassword" class="col-sm-1 col-form-label">Password:</label>
+                <div class="col-sm-3">
+                <input type="password" id="password" name="password" placeholder="Enter Password" class="form-control" >
+                </div>
+            </div>
+            <div class="row mb-4">
+            <label for="inputFeatured" class="col-sm-1 col-form-label">Featured:</label>
+                <div class="col-sm-3">
+                <input class="form-check-input" type="radio" name="featured" id="featuredyes" value="Yes">
+                <label class="form-check-label" for="featuredRadio">Yes</label>
+                <input class="form-check-input" type="radio" name="featured" id="featuredno" value="No">
+                <label class="form-check-label" for="featuredRadio">No</label>
+                </div>
+            </div>
+            <div class="row mb-4">
+            <label for="inputActive" class="col-sm-1 col-form-label">Active:</label>
+                <div class="col-sm-3">
+                <input class="form-check-input" type="radio" name="active" id="activeyes" value="Yes">
+                <label class="form-check-label" for="activeRadio">Yes</label>
+                <input class="form-check-input" type="radio" name="active" id="activeno" value="No">
+                <label class="form-check-label" for="activeRadio">No</label>
+                </div>
+            </div>              
+                <input type="submit" name="submit" value="Add Customer" class="btn btn-primary col-sm-1">
         </form>
 
         
@@ -110,11 +111,11 @@
                     header('location:'.SITEURL.'add-customer.php');
                 }
             }
-
         ?>
-
-
     </div>
 </div>
 
 <?php include('partials/footer.php'); ?>
+</body>
+</html>
+
