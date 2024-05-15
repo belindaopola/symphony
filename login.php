@@ -10,7 +10,7 @@
     <body>
         
         <div class="login">
-            <h1 class="text-center">Login</h1>
+            <h1 class="text-center mb-4">Login</h1>
           
             <?php 
                 if(isset($_SESSION['login']))
@@ -40,7 +40,7 @@
                     <input type="password" class="form-control" name="password" required>
                </div>
             </div>
-            <button type="submit" class="btn btn-primary col-sm-3" name="login" style="margin-left:40";>Login</button> 
+            <input type="submit" name="submit" value="Login" class="btn btn-primary col-sm-1.5">            
             </form>
             <!-- Login Form Ends Here -->
 
