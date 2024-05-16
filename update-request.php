@@ -25,14 +25,14 @@
                     //Detail Availble
                     $row=mysqli_fetch_assoc($res);
 
-                    $product = $row['product'];
+                    $description = $row['description'];
                     $price = $row['price'];
-                    $qty = $row['qty'];
+                    $vat = $row['vat'];
+                    $quotation = $row['quotation'];
                     $status = $row['status'];
                     $customer_name = $row['customer_name'];
-                    $customer_contact = $row['customer_contact'];
-                    $customer_email = $row['customer_email'];
-                    $customer_address= $row['customer_address'];
+                    $customer_po = $row['customer_po'];
+                    $costing_sheet = $row['costing_sheet'];                    
                 }
                 else
                 {
@@ -50,27 +50,50 @@
         ?>
 
         <form action="" method="POST">
-
             <div class="row mb-4">
-                <label for="inputProductName" class="col-sm-1 col-form-label">Product Name:</label>
+                <label for="inputCustomerName" class="col-sm-2 col-form-label">Customer Name:</label>
                 <div class="col-sm-3"> 
-                <input type="text" id="product" name="product" value="<?php echo $product; ?>" class="form-control">
+                <input type="text" id="customer_name" name="customer_name" value="<?php echo $customer_name; ?>" class="form-control">
+                </div>
+            </div>  
+            <div class="row mb-4">
+                <label for="inputDescription" class="col-sm-2 col-form-label">Description:</label>
+                <div class="col-sm-3"> 
+                <input type="text" id="description" name="description" value="<?php echo $description; ?>" class="form-control">
                 </div>
             </div>
             <div class="row mb-4">
-                <label for="inputPrice" class="col-sm-1 col-form-label">Price:</label>
+                <label for="inputPrice" class="col-sm-2 col-form-label">Price:</label>
                 <div class="col-sm-3"> 
                 <input type="number" id="price" name="price" value="<?php echo $price; ?>" class="form-control">
                 </div>
             </div>
             <div class="row mb-4">
-                <label for="inputQty" class="col-sm-1 col-form-label">Qty:</label>
+                <label for="inputVAT" class="col-sm-2 col-form-label">VAT:</label>
                 <div class="col-sm-3"> 
-                <input type="number" id="qty" name="qty" value="<?php echo $qty; ?>" class="form-control">
+                <input type="number" id="vat" name="vat" value="<?php echo $vat; ?>" class="form-control">
                 </div>
             </div>
             <div class="row mb-4">
-                <label for="inputStatus" class="col-sm-1 col-form-label">Status:</label>
+                <label for="inputquotation" class="col-sm-2 col-form-label">Quotation:</label>
+                <div class="col-sm-3"> 
+                <input type="file" id="quotation" name="quotation" value="<?php echo $quotation; ?>" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label for="inputPo" class="col-sm-2 col-form-label">Customer PO:</label>
+                <div class="col-sm-3"> 
+                <input type="file" id="customer_po" name="customer_po" value="<?php echo $customer_po; ?>" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label for="inputCostingsheet" class="col-sm-2 col-form-label">Costing Sheet:</label>
+                <div class="col-sm-3"> 
+                <input type="file" id="costing_sheet" name="costing_sheet" value="<?php echo $costing_sheet; ?>" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label for="inputStatus" class="col-sm-2 col-form-label">Status:</label>
                 <div class="col-sm-3"> 
                     <select name="status">
                         <option <?php if($status=="requested"){echo "selected";} ?> value="requested">requested</option>
@@ -80,30 +103,7 @@
                     </select>
                 </div>
             </div>
-            <div class="row mb-4">
-                    <label for="inputCustomerName" class="col-sm-1 col-form-label">Customer Name:</label>
-                    <div class="col-sm-3"> 
-                    <input type="text" id="customer_name" name="customer_name" value="<?php echo $customer_name; ?>" class="form-control">
-                    </div>
-            </div>
-            <div class="row mb-4">
-                <label for="InputContact" class="col-sm-1 col-form-label">Customer Contact:</label>
-                <div class="col-sm-3">
-                <input type="text" id="customer_contact" name="customer_contact" value="<?php echo $customer_contact; ?>" class="form-control">
-                </div>
-            </div>
-            <div class="row mb-4">
-            <label for="InputEmail" class="col-sm-1 col-form-label">Customer Email:</label>
-                <div class="col-sm-3">
-                <input type="email" id="customer_email" name="customer_email" value="<?php echo $customer_email; ?>" class="form-control">
-                </div>
-            </div>
-            <div class="row mb-4">
-                <label for="InputAddress" class="col-sm-1 col-form-label">Customer Address:</label>
-                <div class="col-sm-3">
-                <textarea type="text" id="customer_address" name="customer_address" value="<?php echo $customer_address; ?>" class="form-control"></textarea>
-                </div>
-            </div>
+                      
         
             <input type="hidden" name="id" value="<?php echo $id; ?>">
             <input type="hidden" name="price" value="<?php echo $price; ?>">
