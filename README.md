@@ -59,3 +59,5 @@ $db_select = mysqli_select_db($conn, DB_NAME) or die(mysqli_error()); //Selectin
 
 6. Now, Open the project in your browser. It should run perfectly.
 
+7. Add the following sales persons: Kiran, Benjamin, Fridah, Bethuel, Sherpard 
+
