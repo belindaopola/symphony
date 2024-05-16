@@ -122,7 +122,13 @@
         <div class="row mb-4">
             <label for="salesPerson" class="col-sm-3 col-form-label">Sales Person:</label>
             <div class="col-sm-5">
-            <input type="text" id="sales-person" placeholder="Sales Person" class="form-control">
+            <select name="sales_person">
+                <option value="Kiran">Kiran</option>
+                <option value="Benjamin">Benjamin</option>
+                <option value="Fridah">Fridah</option>
+                <option value="Bethuel">Bethuel</option>
+                <option value="Sherpard">Sherpard</option>
+            </select>            
             </div>
         </div>
             <input type="submit" name="submit" value="Submit CSR" class="btn btn-primary col-sm-1">
