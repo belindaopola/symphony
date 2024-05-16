@@ -50,7 +50,7 @@
            
     
             <!-- Button to Add Admin -->
-            <a href="<?php echo SITEURL; ?>add-section.php" class="btn btn-primary col-sm-1 row mb-4">Add section</a>
+            <a href="<?php echo SITEURL; ?>add-section.php" class="btn btn-primary col-sm-1.2 row mb-4">Add section</a>
 
 
             <table class="tbl-full">
