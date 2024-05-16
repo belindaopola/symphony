@@ -2,9 +2,7 @@
 
 <div class="main-content">
     <div class="wrapper">
-        <h1>Update request</h1>
-        <br><br>
-
+        <h1 class="row mb-4">Update request</h1>
 
         <?php 
         
@@ -52,77 +50,65 @@
         ?>
 
         <form action="" method="POST">
+
+            <div class="row mb-4">
+                <label for="inputProductName" class="col-sm-1 col-form-label">Product Name:</label>
+                <div class="col-sm-3"> 
+                <input type="text" id="product" name="product" value="<?php echo $product; ?>" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label for="inputPrice" class="col-sm-1 col-form-label">Price:</label>
+                <div class="col-sm-3"> 
+                <input type="number" id="price" name="price" value="<?php echo $price; ?>" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label for="inputQty" class="col-sm-1 col-form-label">Qty:</label>
+                <div class="col-sm-3"> 
+                <input type="number" id="qty" name="qty" value="<?php echo $qty; ?>" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label for="inputStatus" class="col-sm-1 col-form-label">Status:</label>
+                <div class="col-sm-3"> 
+                    <select name="status">
+                        <option <?php if($status=="requested"){echo "selected";} ?> value="requested">requested</option>
+                        <option <?php if($status=="On Delivery"){echo "selected";} ?> value="On Delivery">On Delivery</option>
+                        <option <?php if($status=="Delivered"){echo "selected";} ?> value="Delivered">Delivered</option>
+                        <option <?php if($status=="Cancelled"){echo "selected";} ?> value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-4">
+                    <label for="inputCustomerName" class="col-sm-1 col-form-label">Customer Name:</label>
+                    <div class="col-sm-3"> 
+                    <input type="text" id="customer_name" name="customer_name" value="<?php echo $customer_name; ?>" class="form-control">
+                    </div>
+            </div>
+            <div class="row mb-4">
+                <label for="InputContact" class="col-sm-1 col-form-label">Customer Contact:</label>
+                <div class="col-sm-3">
+                <input type="text" id="customer_contact" name="customer_contact" value="<?php echo $customer_contact; ?>" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-4">
+            <label for="InputEmail" class="col-sm-1 col-form-label">Customer Email:</label>
+                <div class="col-sm-3">
+                <input type="email" id="customer_email" name="customer_email" value="<?php echo $customer_email; ?>" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label for="InputAddress" class="col-sm-1 col-form-label">Customer Address:</label>
+                <div class="col-sm-3">
+                <textarea type="text" id="customer_address" name="customer_address" value="<?php echo $customer_address; ?>" class="form-control"></textarea>
+                </div>
+            </div>
         
-            <table class="tbl-30">
-                <tr>
-                    <td>product Name</td>
-                    <td><b> <?php echo $product; ?> </b></td>
-                </tr>
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
+            <input type="hidden" name="price" value="<?php echo $price; ?>">
 
-                <tr>
-                    <td>Price</td>
-                    <td>
-                        <b> $ <?php echo $price; ?></b>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Qty</td>
-                    <td>
-                        <input type="number" name="qty" value="<?php echo $qty; ?>">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Status</td>
-                    <td>
-                        <select name="status">
-                            <option <?php if($status=="requested"){echo "selected";} ?> value="requested">requested</option>
-                            <option <?php if($status=="On Delivery"){echo "selected";} ?> value="On Delivery">On Delivery</option>
-                            <option <?php if($status=="Delivered"){echo "selected";} ?> value="Delivered">Delivered</option>
-                            <option <?php if($status=="Cancelled"){echo "selected";} ?> value="Cancelled">Cancelled</option>
-                        </select>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Customer Name: </td>
-                    <td>
-                        <input type="text" name="customer_name" value="<?php echo $customer_name; ?>">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Customer Contact: </td>
-                    <td>
-                        <input type="text" name="customer_contact" value="<?php echo $customer_contact; ?>">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Customer Email: </td>
-                    <td>
-                        <input type="text" name="customer_email" value="<?php echo $customer_email; ?>">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Customer Address: </td>
-                    <td>
-                        <textarea name="customer_address" cols="30" rows="5"><?php echo $customer_address; ?></textarea>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td clospan="2">
-                        <input type="hidden" name="id" value="<?php echo $id; ?>">
-                        <input type="hidden" name="price" value="<?php echo $price; ?>">
-
-                        <input type="submit" name="submit" value="Update request" class="btn-secondary">
-                    </td>
-                </tr>
-            </table>
-        
+            <input type="submit" name="submit" value="Update request" class="btn btn-primary col-sm-1.2">      
         </form>
 
 
@@ -176,7 +162,6 @@
                 }
             }
         ?>
-
 
     </div>
 </div>
