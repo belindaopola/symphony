@@ -2,31 +2,27 @@
 
 <div class="main-content">
     <div class="wrapper">
-        <h1>Update section</h1>
-
-        <br><br>
-
+        <h1 class="row mb-4">Update section</h1>
 
         <?php 
-        
-            //Check whether the id is set or not
+            // Check whether the id is set or not
             if(isset($_GET['id']))
             {
-                //Get the ID and all other details
+                // Get the ID and all other details
                 //echo "Getting the Data";
                 $id = $_GET['id'];
-                //Create SQL Query to get all other details
+                // Create SQL Query to get all other details
                 $sql = "SELECT * FROM tbl_section WHERE id=$id";
 
-                //Execute the Query
+                // Execute the Query
                 $res = mysqli_query($conn, $sql);
 
-                //Count the Rows to check whether the id is valid or not
+                // Count the Rows to check whether the id is valid or not
                 $count = mysqli_num_rows($res);
 
                 if($count==1)
                 {
-                    //Get all the data
+                    // Get all the data
                     $row = mysqli_fetch_assoc($res);
                     $title = $row['title'];
                     $current_image = $row['image_name'];
@@ -35,7 +31,7 @@
                 }
                 else
                 {
-                    //redirect to manage section with session message
+                    // Redirect to manage section with session message
                     $_SESSION['no-section-found'] = "<div class='error'>section not Found.</div>";
                     header('location:'.SITEURL.'manage-section.php');
                 }
@@ -43,7 +39,7 @@
             }
             else
             {
-                //redirect to Manage section
+                // Redirect to Manage section
                 header('location:'.SITEURL.'manage-section.php');
             }
         
@@ -51,68 +47,59 @@
 
         <form action="" method="POST" enctype="multipart/form-data">
 
-            <table class="tbl-30">
-                <tr>
-                    <td>Title: </td>
-                    <td>
-                        <input type="text" name="title" value="<?php echo $title; ?>">
-                    </td>
-                </tr>
+            <div class="row mb-4">
+                <label for="inputTitle" class="col-sm-1 col-form-label">Title:</label>
+                <div class="col-sm-3"> 
+                <input type="text" id="title" name="title" value="<?php echo $title; ?>" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label for="inputImage" class="col-sm-1 col-form-label">Current Image:</label>
+                <div class="col-sm-3"> 
+                    <?php 
+                        if($current_image != "")
+                        {
+                            //Display the Image
+                            ?>
+                            <img src="<?php echo SITEURL; ?>images/section/<?php echo $current_image; ?>" width="150px">
+                            <?php
+                        }
+                        else
+                        {
+                            //Display Message
+                            echo "<div class='error'>Image Not Added.</div>";
+                        }
+                    ?>                
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label for="inputImage" class="col-sm-1 col-form-label">New Image:</label>
+                <div class="col-sm-3"> 
+                <input type="file" id="image" name="image" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label for="inputFeatured" class="col-sm-1 col-form-label">Featured:</label>
+                <div class="col-sm-3">
+                <input <?php if($featured=="Yes") {echo "checked";} ?> class="form-check-input" type="radio" name="featured" id="featuredyes" value="Yes">
+                <label class="form-check-label" for="featuredRadio">Yes</label>
+                <input <?php if($featured=="No") {echo "checked";} ?> class="form-check-input" type="radio" name="featured" id="featuredno" value="No">
+                <label class="form-check-label" for="featuredRadio">No</label>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label for="inputActive" class="col-sm-1 col-form-label">Active:</label>
+                <div class="col-sm-3">
+                <input <?php if($active=="Yes") {echo "checked";} ?>  class="form-check-input" type="radio" name="active" id="activeyes" value="Yes">
+                <label class="form-check-label" for="activeRadio">Yes</label>
+                <input <?php if($active=="No") {echo "checked";} ?> class="form-check-input" type="radio" name="active" id="activeno" value="No">
+                <label class="form-check-label" for="activeRadio">No</label>
+                </div>
+            </div>     
 
-                <tr>
-                    <td>Current Image: </td>
-                    <td>
-                        <?php 
-                            if($current_image != "")
-                            {
-                                //Display the Image
-                                ?>
-                                <img src="<?php echo SITEURL; ?>images/section/<?php echo $current_image; ?>" width="150px">
-                                <?php
-                            }
-                            else
-                            {
-                                //Display Message
-                                echo "<div class='error'>Image Not Added.</div>";
-                            }
-                        ?>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>New Image: </td>
-                    <td>
-                        <input type="file" name="image">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Featured: </td>
-                    <td>
-                        <input <?php if($featured=="Yes"){echo "checked";} ?> type="radio" name="featured" value="Yes"> Yes 
-
-                        <input <?php if($featured=="No"){echo "checked";} ?> type="radio" name="featured" value="No"> No 
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Active: </td>
-                    <td>
-                        <input <?php if($active=="Yes"){echo "checked";} ?> type="radio" name="active" value="Yes"> Yes 
-
-                        <input <?php if($active=="No"){echo "checked";} ?> type="radio" name="active" value="No"> No 
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <input type="hidden" name="current_image" value="<?php echo $current_image; ?>">
-                        <input type="hidden" name="id" value="<?php echo $id; ?>">
-                        <input type="submit" name="submit" value="Update section" class="btn-secondary">
-                    </td>
-                </tr>
-
-            </table>
+            <input type="hidden" name="current_image" value="<?php echo $current_image; ?>">
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
+            <input type="submit" name="submit" value="Update section" class="btn btn-primary col-sm-1.2">
 
         </form>
 
@@ -225,9 +212,7 @@
                     $_SESSION['update'] = "<div class='error'>Failed to Update section.</div>";
                     header('location:'.SITEURL.'manage-section.php');
                 }
-
             }
-        
         ?>
 
     </div>

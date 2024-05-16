@@ -1,30 +1,29 @@
 <?php include('partials/menu.php'); ?>
 
 <?php 
-    //CHeck whether id is set or not 
+    // Check whether id is set or not 
     if(isset($_GET['id']))
     {
-        //Get all the details
+        // Get all the details
         $id = $_GET['id'];
 
-        //SQL Query to Get the Selected product
+        // SQL Query to Get the Selected product
         $sql2 = "SELECT * FROM tbl_product WHERE id=$id";
-        //execute the Query
+        // execute the Query
         $res2 = mysqli_query($conn, $sql2);
 
-        //Get the value based on query executed
+        // Get the value based on query executed
         $row2 = mysqli_fetch_assoc($res2);
 
-        //Get the Individual Values of Selected product
+        // Get the Individual Values of Selected product
         $title = $row2['title'];
         $current_section = $row2['section_id'];
         $featured = $row2['featured'];
         $active = $row2['active'];
-
     }
     else
     {
-        //Redirect to Manage product
+        // Redirect to Manage product
         header('location:'.SITEURL.'manage-product.php');
     }
 ?>
@@ -32,25 +31,21 @@
 
 <div class="main-content">
     <div class="wrapper">
-        <h1>Update Product/Service</h1>
-        <br><br>
+        <h1 class="row mb-4">Update Product/Service</h1>
 
-        <form action="" method="POST" enctype="multipart/form-data">
-        
-        <table class="tbl-30">
+        <form action="" method="POST" enctype="multipart/form-data">  
+            
+            <div class="row mb-4">
+                <label for="inputDescription" class="col-sm-1 col-form-label">Description:</label>
+                <div class="col-sm-3"> 
+                <input type="text" id="title" name="title" value="<?php echo $title; ?>" class="form-control">
+                </div>
+            </div>
 
-            <tr>
-                <td>Description: </td>
-                <td>
-                    <input type="text" name="title" value="<?php echo $title; ?>">
-                </td>
-            </tr>
-
-            <tr>
-                <td>section: </td>
-                <td>
-                    <select name="section">
-
+            <div class="row mb-4">
+                <label for="inputSection" class="col-sm-1 col-form-label">Description:</label>
+                <div class="col-sm-3"> 
+                    <select name="section" >
                         <?php 
                             //Query to Get ACtive Categories
                             $sql = "SELECT * FROM tbl_section WHERE active='Yes'";
@@ -79,40 +74,33 @@
                                 //section Not Available
                                 echo "<option value='0'>section Not Available.</option>";
                             }
-
                         ?>
-
                     </select>
-                </td>
-            </tr>
+                </div>
+            </div>
 
-            <tr>
-                <td>Featured: </td>
-                <td>
-                    <input <?php if($featured=="Yes") {echo "checked";} ?> type="radio" name="featured" value="Yes"> Yes 
-                    <input <?php if($featured=="No") {echo "checked";} ?> type="radio" name="featured" value="No"> No 
-                </td>
-            </tr>
-
-            <tr>
-                <td>Active: </td>
-                <td>
-                    <input <?php if($active=="Yes") {echo "checked";} ?> type="radio" name="active" value="Yes"> Yes 
-                    <input <?php if($active=="No") {echo "checked";} ?> type="radio" name="active" value="No"> No 
-                </td>
-            </tr>
-
-            <tr>
-                <td>
+            <div class="row mb-4">
+                <label for="inputFeatured" class="col-sm-1 col-form-label">Featured:</label>
+                    <div class="col-sm-3">
+                    <input <?php if($featured=="Yes") {echo "checked";} ?> class="form-check-input" type="radio" name="featured" id="featuredyes" value="Yes">
+                    <label class="form-check-label" for="featuredRadio">Yes</label>
+                    <input <?php if($featured=="No") {echo "checked";} ?> class="form-check-input" type="radio" name="featured" id="featuredno" value="No">
+                    <label class="form-check-label" for="featuredRadio">No</label>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                <label for="inputActive" class="col-sm-1 col-form-label">Active:</label>
+                    <div class="col-sm-3">
+                    <input <?php if($active=="Yes") {echo "checked";} ?>  class="form-check-input" type="radio" name="active" id="activeyes" value="Yes">
+                    <label class="form-check-label" for="activeRadio">Yes</label>
+                    <input <?php if($active=="No") {echo "checked";} ?> class="form-check-input" type="radio" name="active" id="activeno" value="No">
+                    <label class="form-check-label" for="activeRadio">No</label>
+                    </div>
+                </div> 
                     <input type="hidden" name="id" value="<?php echo $id; ?>">
                     <input type="hidden" name="current_image" value="<?php echo $current_image; ?>">
 
-                    <input type="submit" name="submit" value="Update product" class="btn-secondary">
-                </td>
-            </tr>
-        
-        </table>
-        
+                    <input type="submit" name="submit" value="Update product" class="btn btn-primary col-sm-1.2">      
         </form>
 
         <?php 

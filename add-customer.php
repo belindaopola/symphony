@@ -61,7 +61,7 @@
                 <label class="form-check-label" for="activeRadio">No</label>
                 </div>
             </div>              
-                <input type="submit" name="submit" value="Add Customer" class="btn btn-primary col-sm-1">
+                <input type="submit" name="submit" value="Add Customer" class="btn btn-primary col-sm-1.2">
         </form>
 
         
@@ -107,6 +107,4 @@
 </div>
 
 <?php include('partials/footer.php'); ?>
-</body>
-</html>
 
