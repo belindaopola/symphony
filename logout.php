@@ -6,5 +6,4 @@
 
     //2. REdirect to Login Page
     header('location:'.SITEURL.'login.php');
-
 ?>

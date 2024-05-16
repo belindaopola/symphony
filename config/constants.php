@@ -4,7 +4,7 @@
 
 
     //Create Constants to Store Non Repeating Values
-    define('SITEURL', 'localhost');
+    define('SITEURL', 'http://localhost/symphony/');
     define('LOCALHOST', 'localhost');
     define('DB_USERNAME', 'root');
     define('DB_PASSWORD', '');
