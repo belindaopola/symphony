@@ -14,18 +14,60 @@
 
         <form action="" method="POST" class="request" enctype="multipart/form-data">
                     
-        <div class="row mb-4">
-            <label for="customerName" class="col-sm-3 col-form-label">Customer Name:</label>
-            <div class="col-sm-5">
-            <input type="text" id="customer-name" placeholder="Customer Name" class="form-control">
-            </div>
-        </div>
+		<div class="row mb-4">
+			<label for="customerName" class="col-sm-3 col-form-label">Customer Name:</label>
+			<div class="col-sm-5">
+				<select id="customer-name" name="customer_name" class="form-control">
+					<option value="">Select Customer</option>
+					<?php 
+						// Fetch the list of existing customers
+						$sql = "SELECT id, customer_name FROM tbl_customer";
+						$result = mysqli_query($conn, $sql);
+						while($row = mysqli_fetch_assoc($result)) {
+							echo "<option value='".$row['id']."'>".$row['customer_name']."</option>";
+						}
+					?>
+					<option value="new">Add New Customer</option>
+				</select>
+			</div>
+		</div>
+
+		<script>
+			document.getElementById('customer-name').addEventListener('change', function() {
+				var selectedValue = this.value;
+				if (selectedValue === 'new') {
+					window.location.href = 'add-customer.php';
+				}
+			});
+		</script>
+
         <div class="row mb-4">
             <label for="productDescription" class="col-sm-3 col-form-label">Product Description:</label>
             <div class="col-sm-5">
-            <input type="text" id="product-description" placeholder="Product Description" class="form-control">
-            </div>
-        </div>
+				<select id="title" name="title" class="form-control">
+					<option value="">Select Product/Service</option>
+					<?php 
+						// Fetch the list of existing customers
+						$sql = "SELECT id, title FROM tbl_product";
+						$result = mysqli_query($conn, $sql);
+						while($row = mysqli_fetch_assoc($result)) {
+							echo "<option value='".$row['id']."'>".$row['title']."</option>";
+						}
+					?>
+					<option value="new">Add New Product/Service</option>
+				</select>
+			</div>
+		</div>
+
+		<script>
+			document.getElementById('title').addEventListener('change', function() {
+				var selectedValue = this.value;
+				if (selectedValue === 'new') {
+					window.location.href = 'add-product.php';
+				}
+			});
+		</script>
+
         <div class="row mb-4">
             <label for="quotation" class="col-sm-3 col-form-label">Add Quotation:</label>
             <div class="col-sm-5">
