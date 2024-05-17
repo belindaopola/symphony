@@ -17,6 +17,7 @@ include('login-check.php');
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="manage-admin.php">Admin</a></li>
+                <li><a href="manage-user.php">Users</a></li>
                 <li><a href="manage-section.php">Section</a></li>
                 <li><a href="manage-customer.php">Customers</a></li>
                 <li><a href="manage-product.php">Product</a></li>
