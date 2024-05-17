@@ -122,13 +122,17 @@
         <div class="row mb-4">
             <label for="salesPerson" class="col-sm-3 col-form-label">Sales Person:</label>
             <div class="col-sm-5">
-            <select name="sales_person">
-                <option value="Kiran">Kiran</option>
-                <option value="Benjamin">Benjamin</option>
-                <option value="Fridah">Fridah</option>
-                <option value="Bethuel">Bethuel</option>
-                <option value="Sherpard">Sherpard</option>
-            </select>            
+                <select id="name" name="name" class="form-control">
+					<?php 
+						// Fetch the list of existing users
+						$sql = "SELECT id, name FROM tbl_user";
+						$result = mysqli_query($conn, $sql);
+						while($row = mysqli_fetch_assoc($result)) {
+							echo "<option value='".$row['id']."'>".$row['name']."</option>";
+						}
+					?>
+					<option value="new">Add New User</option>
+				</select>            
             </div>
         </div>
 
