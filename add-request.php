@@ -131,7 +131,17 @@
             </select>            
             </div>
         </div>
-            <input type="submit" name="submit" value="Submit CSR" class="btn btn-primary col-sm-1">
+
+        <script>
+			document.getElementById('name').addEventListener('change', function() {
+				var selectedValue = this.value;
+				if (selectedValue === 'new') {
+					window.location.href = 'add-user.php';
+				}
+			});
+		</script>
+
+            <input type="submit" name="submit" value="Submit CSR" class="btn btn-primary col-sm-1.2">
         </form>
         </div>        
     </section>
