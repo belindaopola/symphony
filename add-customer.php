@@ -16,7 +16,7 @@
             <div class="row mb-4">
                 <label for="inputCustomerName" class="col-sm-1 col-form-label">Customer Name:</label>
                 <div class="col-sm-3"> 
-                <input type="text" id="customer-name" name="customer_name" placeholder="Enter Customer Name" class="form-control">
+                <input type="text" id="name" name="name" placeholder="Enter Customer Name" class="form-control">
                 </div>
             </div>
             <div class="row mb-4">

@@ -77,7 +77,7 @@
                                 ?>
 
                                     <tr>
-                                        <td><?php echo "TS" . date("Y") . "/" . sprintf('%03d', $sn++); ?></td>
+                                        <td><?php echo "TS" . date("Y") . "/" . sprintf('%03d', $sn++); ?></td> <!-- Modify to pick the request_date not current year-->
                                         <td><?php echo $request_date; ?></td>
                                         <td><?php echo $customer_name; ?></td>
                                         <td><?php echo $description; ?></td>
