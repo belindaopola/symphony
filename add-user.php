@@ -70,7 +70,7 @@
             name='$name',
             email='$email',
             role='$role',
-            department='$department',
+            department='$department'
         ";
  
         // 3. Executing Query and Saving Data into Datbase
