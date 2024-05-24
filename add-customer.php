@@ -38,12 +38,6 @@
                 </div>
             </div>
             <div class="row mb-4">
-            <label for="inputPassword" class="col-sm-1 col-form-label">Password:</label>
-                <div class="col-sm-3">
-                <input type="password" id="password" name="password" placeholder="Enter Password" class="form-control" >
-                </div>
-            </div>
-            <div class="row mb-4">
             <label for="inputFeatured" class="col-sm-1 col-form-label">Featured:</label>
                 <div class="col-sm-3">
                 <input class="form-check-input" type="radio" name="featured" id="featuredyes" value="Yes">
