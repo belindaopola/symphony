@@ -77,7 +77,7 @@
                         ?>
 
                             <tr>
-                                <td><?php echo "IT" . date("Y", strtotime($request_date )). "/" . sprintf('%03d', $sn++); ?></td> <!-- Modify to pick the request_date not current year-->
+                                <td><?php echo "IT" . date("Y") . "/" . sprintf('%03d', $sn++); ?></td> <!--- Modify to pick the request_date not current year-->
                                 <td><?php echo $request_date; ?></td>
                                 <td><?php echo $customer_name; ?></td>
                                 <td><?php echo $description; ?></td>
@@ -129,7 +129,7 @@
                                 <td><?php echo $status; ?></td>
                                 <td><?php echo $salesperson; ?></td>
                                 <td>
-                                    <a href="<?php echo SITEURL; ?>update-request.php?id=<?php echo $id; ?>" class="btn btn-secondary col-sm-2.5">Update request</a>
+                                    <a href="<?php echo SITEURL; ?>update-it-request.php?id=<?php echo $id; ?>" class="btn btn-secondary col-sm-2.5">Update request</a>
                                 </td>
                             </tr>
 
