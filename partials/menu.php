@@ -21,7 +21,8 @@ include('login-check.php');
                 <li><a href="manage-section.php">Section</a></li>
                 <li><a href="manage-customer.php">Customers</a></li>
                 <li><a href="manage-product.php">Product</a></li>
-                <li><a href="manage-request.php">Requests</a></li>
+                <li><a href="manage-request.php">TS Requests</a></li>
+                <li><a href="manage-it-request.php">IT Requests</a></li>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
         </div>
