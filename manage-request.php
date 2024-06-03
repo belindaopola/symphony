@@ -46,7 +46,7 @@
 
             <?php 
                 //Get all the requests from database
-                $sql = "SELECT * FROM tbl_request ORDER BY id DESC"; // Display the Latest request at First
+                $sql = "SELECT * FROM tbl_request ORDER BY id ASC"; // Display the Latest request at Last
                 //Execute Query
                 $res = mysqli_query($conn, $sql);
                 //Count the Rows
