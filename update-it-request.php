@@ -115,8 +115,8 @@
                 </div>
             </div>
             <div class="row mb-4">
-                <label for="inputCostingsheet" class="col-sm-2 col-form-label">Costing Sheet:</label>
-                <div class="col-sm-3"> 
+                <label for="sales_person" class="col-sm-2 col-form-label">Sales Person:</label>
+                <div class="col-sm-3">
                 <input type="file" id="costing_sheet" name="costing_sheet" value="<?php echo $costing_sheet; ?>" class="form-control">
                 </div>
             </div>
