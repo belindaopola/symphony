@@ -2,7 +2,7 @@
 
 <div class="main-content">
     <div class="wrapper">
-        <h1 class="row mb-4">Update request</h1>
+        <h1 class="row mb-4">Update IT Request</h1>
 
         <?php 
         
@@ -33,7 +33,7 @@
                     $status = $row['status'];
                     $customer_name = $row['customer_name'];
                     $customer_po = $row['customer_po'];
-                    $costing_sheet = $row['costing_sheet'];                    
+                    $costing_sheet = $row['costing_sheet'];   
                     $sales_person = $row['sales_person'];                 
                 }
                 else
@@ -75,13 +75,13 @@
                 </div>
             </div>
             <div class="row mb-4">
-                <label for="inputPrice" class="col-sm-2 col-form-label">Price:</label>
+                <label for="inputquotation" class="col-sm-2 col-form-label">Quotation:</label>
                 <div class="col-sm-3"> 
-                <input type="number" id="price" name="price" value="<?php echo $price; ?>" class="form-control">
+                <input type="file" id="quotation" name="quotation" value="<?php echo $quotation; ?>" class="form-control">
                 </div>
             </div>
             <div class="row mb-4">
-                <label for="inputVAT" class="col-sm-2 col-form-label">VAT:</label>
+                <label for="inputPo" class="col-sm-2 col-form-label">Customer PO:</label>
                 <div class="col-sm-3"> 
                 <input type="file" id="customer_po" name="customer_po" value="<?php echo $customer_po; ?>" class="form-control">
                 </div>
@@ -103,15 +103,15 @@
                 </div>
             </div>
             <div class="row mb-4">
-                <label for="inputquotation" class="col-sm-2 col-form-label">Quotation:</label>
+                <label for="inputPrice" class="col-sm-2 col-form-label">Price:</label>
                 <div class="col-sm-3"> 
-                <input type="file" id="quotation" name="quotation" value="<?php echo $quotation; ?>" class="form-control">
+                <input type="number" id="price" name="price" value="<?php echo $price; ?>" class="form-control">
                 </div>
             </div>
             <div class="row mb-4">
-                <label for="inputPo" class="col-sm-2 col-form-label">Customer PO:</label>
+                <label for="inputVAT" class="col-sm-2 col-form-label">VAT:</label>
                 <div class="col-sm-3"> 
-                <input type="file" id="customer_po" name="customer_po" value="<?php echo $customer_po; ?>" class="form-control">
+                <input type="number" id="vat" name="vat" value="<?php echo $vat; ?>" class="form-control">
                 </div>
             </div>
             <div class="row mb-4">
@@ -133,7 +133,7 @@
             <div class="row mb-4">
                 <label for="inputStatus" class="col-sm-2 col-form-label">Status:</label>
                 <div class="col-sm-3"> 
-                    <select name="status">
+                    <select name="status" class="form-control">
                         <option <?php if($status=="requested"){echo "selected";} ?> value="requested">requested</option>
                         <option <?php if($status=="On Delivery"){echo "selected";} ?> value="On Delivery">On Delivery</option>
                         <option <?php if($status=="Delivered"){echo "selected";} ?> value="Delivered">Delivered</option>
