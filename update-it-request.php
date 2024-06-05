@@ -83,7 +83,23 @@
             <div class="row mb-4">
                 <label for="inputVAT" class="col-sm-2 col-form-label">VAT:</label>
                 <div class="col-sm-3"> 
-                <input type="number" id="vat" name="vat" value="<?php echo $vat; ?>" class="form-control">
+                <input type="file" id="customer_po" name="customer_po" value="<?php echo $customer_po; ?>" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label for="inputCostingsheet" class="col-sm-2 col-form-label">Costing Sheet:</label>
+                <div class="col-sm-3"> 
+                <input type="file" id="costing_sheet" name="costing_sheet" value="<?php echo $costing_sheet; ?>" class="form-control">
+                </div>
+            </div>
+            <div class="row mb-4">
+                <label for="currency" class="col-sm-2 col-form-label">Currency:</label>
+                <div class="col-sm-3">
+                    <select id="currency" name="currency" class="form-control">
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="KES">KES</option>
+                    </select>
                 </div>
             </div>
             <div class="row mb-4">
