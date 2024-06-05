@@ -36,7 +36,7 @@
                 <th>Customer PO</th>
                 <th>Costing Sheet</th>
                 <th>Currency</th>
-                <th>Amount</th>
+                <th>Price</th>
                 <th>VAT</th>
                 <th>Total</th>
                 <th>Status</th>
