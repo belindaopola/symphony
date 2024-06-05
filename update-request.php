@@ -26,6 +26,7 @@
                     $row=mysqli_fetch_assoc($res);
 
                     $description = $row['description'];
+                    $currency = $row['currency'];
                     $price = $row['price'];
                     $vat = $row['vat'];
                     $quotation = $row['quotation'];
@@ -33,6 +34,7 @@
                     $customer_name = $row['customer_name'];
                     $customer_po = $row['customer_po'];
                     $costing_sheet = $row['costing_sheet'];                    
+                    $sales_person = $row['sales_person'];                                 
                 }
                 else
                 {
