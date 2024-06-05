@@ -115,9 +115,19 @@
                 </div>
             </div>
             <div class="row mb-4">
-                <label for="inputCostingsheet" class="col-sm-2 col-form-label">Costing Sheet:</label>
-                <div class="col-sm-3"> 
-                <input type="file" id="costing_sheet" name="costing_sheet" value="<?php echo $costing_sheet; ?>" class="form-control">
+                <label for="sales_person" class="col-sm-2 col-form-label">Sales Person:</label>
+                <div class="col-sm-3">
+                    <select id="sales_person" name="sales_person" class="form-control">
+                        <option value="">Select Sales Person</option>
+                        <?php 
+                            $sql4 = "SELECT id, user_name FROM tbl_user";
+                            $res4 = mysqli_query($conn, $sql4);
+                            while ($row = mysqli_fetch_assoc($res4)) {
+                                echo "<option value='" . $row['id'] . "'>" . $row['user_name'] . "</option>";
+                            }
+                        ?>
+                        <option value="new">Add New Sales Person</option>
+                    </select>
                 </div>
             </div>
             <div class="row mb-4">
