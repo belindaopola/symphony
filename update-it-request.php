@@ -6,24 +6,27 @@
 
         <?php 
         
-            //CHeck whether id is set or not
+            // Check whether id is set or not
             if(isset($_GET['id']))
             {
-                //GEt the request Details
-                $id=$_GET['id'];
+                // Get the request details
+                $id = $_GET['id'];
 
-                //Get all other details based on this id
-                //SQL Query to get the request details
-                $sql = "SELECT * FROM tbl_it_request WHERE id=$id";
-                //Execute Query
+                // SQL query to get the request details with joins for customer and salesperson names
+                $sql = "SELECT ir.*, c.customer_name, u.user_name AS sales_person 
+                        FROM tbl_it_request ir
+                        JOIN tbl_customer c ON ir.customer_name = c.id
+                        JOIN tbl_user u ON ir.sales_person = u.id
+                        WHERE ir.id = $id";
+                // Execute query
                 $res = mysqli_query($conn, $sql);
-                //Count Rows
+                // Count rows
                 $count = mysqli_num_rows($res);
 
-                if($count==1)
+                if($count == 1)
                 {
-                    //Detail Availble
-                    $row=mysqli_fetch_assoc($res);
+                    // Details available
+                    $row = mysqli_fetch_assoc($res);
 
                     $description = $row['description'];
                     $currency = $row['currency'];
@@ -33,20 +36,20 @@
                     $status = $row['status'];
                     $customer_name = $row['customer_name'];
                     $customer_po = $row['customer_po'];
-                    $costing_sheet = $row['costing_sheet'];   
-                    $sales_person = $row['sales_person'];                 
+                    $costing_sheet = $row['costing_sheet'];
+                    $sales_person = $row['sales_person'];
                 }
                 else
                 {
-                    //Detail not Available/
-                    //Redirect to Manage request
-                    header('location:'.SITEURL.'manage-it-request.php');
+                    // Detail not available
+                    // Redirect to manage request
+                    header('location:' . SITEURL . 'manage-it-request.php');
                 }
             }
             else
             {
-                //Redirect to manage request page
-                header('location:'.SITEURL.'manage-it-request.php');
+                // Redirect to manage request page
+                header('location:' . SITEURL . 'manage-it-request.php');
             }
         
         ?>
@@ -61,7 +64,8 @@
                             $sql2 = "SELECT id, customer_name FROM tbl_customer";
                             $res2 = mysqli_query($conn, $sql2);
                             while ($row = mysqli_fetch_assoc($res2)) {
-                                echo "<option value='" . $row['id'] . "'>" . $row['customer_name'] . "</option>";
+                                $selected = $row['id'] == $customer_name ? "selected" : "";
+                                echo "<option value='" . $row['id'] . "' $selected>" . $row['customer_name'] . "</option>";
                             }
                         ?>
                         <option value="new">Add New Customer</option>
@@ -96,9 +100,9 @@
                 <label for="currency" class="col-sm-2 col-form-label">Currency:</label>
                 <div class="col-sm-3">
                     <select id="currency" name="currency" class="form-control">
-                        <option value="USD">USD</option>
-                        <option value="EUR">EUR</option>
-                        <option value="KES">KES</option>
+                        <option value="USD" <?php if($currency == "USD"){echo "selected";} ?>>USD</option>
+                        <option value="EUR" <?php if($currency == "EUR"){echo "selected";} ?>>EUR</option>
+                        <option value="KES" <?php if($currency == "KES"){echo "selected";} ?>>KES</option>
                     </select>
                 </div>
             </div>
@@ -123,7 +127,8 @@
                             $sql4 = "SELECT id, user_name FROM tbl_user";
                             $res4 = mysqli_query($conn, $sql4);
                             while ($row = mysqli_fetch_assoc($res4)) {
-                                echo "<option value='" . $row['id'] . "'>" . $row['user_name'] . "</option>";
+                                $selected = $row['id'] == $sales_person ? "selected" : "";
+                                echo "<option value='" . $row['id'] . "' $selected>" . $row['user_name'] . "</option>";
                             }
                         ?>
                         <option value="new">Add New Sales Person</option>
@@ -134,69 +139,67 @@
                 <label for="inputStatus" class="col-sm-2 col-form-label">Status:</label>
                 <div class="col-sm-3"> 
                     <select name="status" class="form-control">
-                        <option <?php if($status=="requested"){echo "selected";} ?> value="requested">requested</option>
-                        <option <?php if($status=="On Delivery"){echo "selected";} ?> value="On Delivery">On Delivery</option>
-                        <option <?php if($status=="Delivered"){echo "selected";} ?> value="Delivered">Delivered</option>
-                        <option <?php if($status=="Cancelled"){echo "selected";} ?> value="Cancelled">Cancelled</option>
+                        <option <?php if($status == "requested"){echo "selected";} ?> value="requested">requested</option>
+                        <option <?php if($status == "On Delivery"){echo "selected";} ?> value="On Delivery">On Delivery</option>
+                        <option <?php if($status == "Delivered"){echo "selected";} ?> value="Delivered">Delivered</option>
+                        <option <?php if($status == "Cancelled"){echo "selected";} ?> value="Cancelled">Cancelled</option>
                     </select>
                 </div>
             </div>
-                      
-        
+
             <input type="hidden" name="id" value="<?php echo $id; ?>">
             <input type="hidden" name="price" value="<?php echo $price; ?>">
 
             <input type="submit" name="submit" value="Update request" class="btn btn-primary col-sm-1.2">      
         </form>
 
-
         <?php 
-            //CHeck whether Update Button is Clicked or Not
+            // Check whether Update Button is Clicked or Not
             if(isset($_POST['submit']))
             {
-                //echo "Clicked";
-                //Get All the Values from Form
+                // Get All the Values from Form
                 $id = $_POST['id'];
+                $description = $_POST['description'];
+                $quotation = $_POST['quotation'];
+                $customer_po = $_POST['customer_po'];
+                $costing_sheet = $_POST['costing_sheet'];
+                $currency = $_POST['currency'];
                 $price = $_POST['price'];
-                $qty = $_POST['qty'];
-
-                $total = $price * $qty;
-
+                $vat = $_POST['vat'];
                 $status = $_POST['status'];
-
                 $customer_name = $_POST['customer_name'];
-                $customer_contact = $_POST['customer_contact'];
-                $customer_email = $_POST['customer_email'];
-                $customer_address = $_POST['customer_address'];
+                $sales_person = $_POST['sales_person'];
 
-                //Update the Values
+                // Update the Values
                 $sql2 = "UPDATE tbl_it_request SET 
-                    qty = $qty,
-                    total = $total,
+                    description = '$description',
+                    quotation = '$quotation',
+                    customer_po = '$customer_po',
+                    costing_sheet = '$costing_sheet',
+                    currency = '$currency',
+                    price = $price,
+                    vat = $vat,
                     status = '$status',
-                    customer_name = '$customer_name',
-                    customer_contact = '$customer_contact',
-                    customer_email = '$customer_email',
-                    customer_address = '$customer_address'
-                    WHERE id=$id
+                    customer_name = $customer_name,
+                    sales_person = $sales_person
+                    WHERE id = $id
                 ";
 
-                //Execute the Query
+                // Execute the Query
                 $res2 = mysqli_query($conn, $sql2);
 
-                //CHeck whether update or not
-                //And REdirect to Manage request with Message
-                if($res2==true)
+                // Check whether update or not and redirect to manage request with message
+                if($res2 == true)
                 {
-                    //Updated
-                    $_SESSION['update'] = "<div class='success'>request Updated Successfully.</div>";
-                    header('location:'.SITEURL.'manage-request.php');
+                    // Updated
+                    $_SESSION['update'] = "<div class='success'>Request Updated Successfully.</div>";
+                    header('location:' . SITEURL . 'manage-request.php');
                 }
                 else
                 {
-                    //Failed to Update
-                    $_SESSION['update'] = "<div class='error'>Failed to Update request.</div>";
-                    header('location:'.SITEURL.'manage-it-request.php');
+                    // Failed to Update
+                    $_SESSION['update'] = "<div class='error'>Failed to Update Request.</div>";
+                    header('location:' . SITEURL . 'manage-it-request.php');
                 }
             }
         ?>
