@@ -55,7 +55,17 @@
             <div class="row mb-4">
                 <label for="inputCustomerName" class="col-sm-2 col-form-label">Customer Name:</label>
                 <div class="col-sm-3"> 
-                <input type="text" id="customer_name" name="customer_name" value="<?php echo $customer_name; ?>" class="form-control">
+                    <select id="customer-name" name="customer_name" class="form-control">
+                        <option value="">Select Customer</option>
+                        <?php 
+                            $sql2 = "SELECT id, customer_name FROM tbl_customer";
+                            $res2 = mysqli_query($conn, $sql2);
+                            while ($row = mysqli_fetch_assoc($res2)) {
+                                echo "<option value='" . $row['id'] . "'>" . $row['customer_name'] . "</option>";
+                            }
+                        ?>
+                        <option value="new">Add New Customer</option>
+                    </select>
                 </div>
             </div>  
             <div class="row mb-4">
