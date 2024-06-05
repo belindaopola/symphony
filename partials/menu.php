@@ -14,16 +14,24 @@ include('login-check.php');
     <!-- Menu Section Starts -->
     <div class="menu text-center">
         <div class="wrapper">
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="manage-admin.php">Admin</a></li>
-                <li><a href="manage-user.php">Users</a></li>
-                <li><a href="manage-section.php">Section</a></li>
-                <li><a href="manage-customer.php">Customers</a></li>
-                <li><a href="manage-product.php">Product</a></li>
-                <li><a href="manage-request.php">TS Requests</a></li>
-                <li><a href="manage-it-request.php">IT Requests</a></li>
-                <li><a href="logout.php">Logout</a></li>
+            <ul class="nav justify-content-center">
+                <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="manage-admin.php">Admin</a></li>
+                <li class="nav-item"><a class="nav-link" href="manage-user.php">Users</a></li>
+                <li class="nav-item"><a class="nav-link" href="manage-section.php">Section</a></li>
+                <li class="nav-item"><a class="nav-link" href="manage-customer.php">Customers</a></li>
+                <li class="nav-item"><a class="nav-link" href="manage-product.php">Product</a></li>
+                <!-- Requests Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Requests
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="manage-request.php">TS Requests</a></li>
+                        <li><a class="dropdown-item" href="manage-it-request.php">IT Requests</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
             </ul>
         </div>
     </div>
