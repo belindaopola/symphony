@@ -2,7 +2,7 @@
 
 <div class="main-content">
     <div class="wrapper" style="width:100%">
-        <h1 class="row mb-4">Manage Request</h1>
+        <h1 class="row mb-4">IT Services</h1>
         <?php 
             if(isset($_SESSION['add']))
             {
