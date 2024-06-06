@@ -20,7 +20,7 @@
             }
         ?>
 
-        <!-- Button to Add Admin -->
+        <!-- Button to Add New CRS -->
         <a href="add-it-request.php" class="btn btn-primary col-sm-1 row mb-4">New CSR</a>
 
         <table class="tbl-full">
