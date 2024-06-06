@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 05, 2024 at 10:42 AM
+-- Generation Time: Jun 06, 2024 at 01:41 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -59,14 +59,6 @@ CREATE TABLE `tbl_customer` (
   `active` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tbl_customer`
---
-
-INSERT INTO `tbl_customer` (`id`, `customer_name`, `customer_contact`, `customer_email`, `customer_address`, `featured`, `active`) VALUES
-(1, '', '', '', '', 'No', 'No'),
-(2, 'Symphony Technologies Limited', '+254729851357', 'belinda@symphony.co.ke', 'Crescent Business Center', 'Yes', 'Yes');
-
 -- --------------------------------------------------------
 
 --
@@ -89,14 +81,6 @@ CREATE TABLE `tbl_it_request` (
   `description` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Dumping data for table `tbl_it_request`
---
-
-INSERT INTO `tbl_it_request` (`id`, `request_date`, `customer_name`, `quotation`, `customer_po`, `costing_sheet`, `currency`, `price`, `vat`, `total`, `status`, `sales_person`, `description`) VALUES
-(1, '0000-00-00 00:00:00', '2', 'Quotation_IT2024_001.docx', 'PO_IT2024_001.docx', 'Costing_IT2024_001.docx', 'USD', 30000.00, 10000, 40000.00, 'Pending', '2', '4'),
-(2, '2024-06-03 13:12:25', '2', 'Quotation_IT2024_002.docx', 'PO_IT2024_002.docx', 'Costing_IT2024_002.docx', 'USD', 30000.00, 10000, 40000.00, 'Approved', '1', '1');
-
 -- --------------------------------------------------------
 
 --
@@ -113,16 +97,6 @@ CREATE TABLE `tbl_product` (
   `featured` varchar(10) NOT NULL,
   `active` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Dumping data for table `tbl_product`
---
-
-INSERT INTO `tbl_product` (`id`, `title`, `description`, `price`, `image_name`, `section_id`, `featured`, `active`) VALUES
-(1, 'UPS Commissioning', 'UPS Commissioning of SG Series in Harare', 100000, 'Product-Name-1443.jpg', 5, 'Yes', 'Yes'),
-(2, 'UPS Commissioning', 'UPS Commissioning of SG Series in Harare', 100000, 'Product-Name-8516.jpg', 5, 'Yes', 'Yes'),
-(3, 'UPS Commissioning', 'UPS Commissioning of SG Series in Harare', 100000, 'Product-Name-2562.jpg', 5, 'Yes', 'Yes'),
-(4, 'Server Configuration', 'X3400 Server Configuration', 15000, 'Product-Name-5704.docx', 5, 'Yes', 'Yes');
 
 -- --------------------------------------------------------
 
@@ -145,14 +119,6 @@ CREATE TABLE `tbl_request` (
   `sales_person` varchar(150) NOT NULL,
   `description` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Dumping data for table `tbl_request`
---
-
-INSERT INTO `tbl_request` (`id`, `request_date`, `customer_name`, `quotation`, `customer_po`, `costing_sheet`, `currency`, `price`, `vat`, `total`, `status`, `sales_person`, `description`) VALUES
-(1, '0000-00-00 00:00:00', '2', 'Quotation_TS2024_001.docx', 'Customer_PO_TS2024_001.docx', 'Costing_TS2024_001.docx', 'USD', 30000.00, 10000, 40000.00, 'Pending', '1', '2'),
-(2, '2024-06-03 13:13:29', '2', 'Quotation_TS2024_002.docx', 'Customer_PO_TS2024_002.docx', 'Costing_TS2024_002.docx', 'USD', 30000.00, 10000, 40000.00, 'Pending', '1', '3');
 
 -- --------------------------------------------------------
 
@@ -266,25 +232,25 @@ ALTER TABLE `tbl_admin`
 -- AUTO_INCREMENT for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_it_request`
 --
 ALTER TABLE `tbl_it_request`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_product`
 --
 ALTER TABLE `tbl_product`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_request`
 --
 ALTER TABLE `tbl_request`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_section`
