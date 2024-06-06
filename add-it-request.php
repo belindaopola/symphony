@@ -83,7 +83,7 @@ if (isset($_POST['submit'])) {
                                                 header("location:" . SITEURL . 'manage-request.php');
     } else {
         $_SESSION['add'] = "<div class='error'>Failed to Add Request.</div>";
-        header("location:" . SITEURL . 'add-request.php');
+        header("location:" . SITEURL . 'add-it-request.php');
     }
     exit(); // Ensure no further code is executed
 }
