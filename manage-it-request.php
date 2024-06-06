@@ -44,30 +44,15 @@
             <?php 
                 // Get all the requests from the database with joins
                 $sql = "
-                    SELECT 
-                        tbl_request.id,
-                        tbl_request.request_date,
-                        tbl_customer.customer_name,
-                        tbl_product.description,
-                        tbl_request.quotation,
-                        tbl_request.customer_po,
-                        tbl_request.costing_sheet,
-                        tbl_request.currency,
-                        tbl_request.price,
-                        tbl_request.vat,
-                        tbl_request.total,
-                        tbl_request.status,
-                        tbl_user.user_name
-                    FROM 
-                        tbl_request
+                    SELECT * FROM tbl_it_request
                     JOIN 
-                        tbl_customer ON tbl_request.customer_name = tbl_customer.id
+                        tbl_customer ON tbl_it_request.customer_name = tbl_customer.id
                     JOIN 
-                        tbl_product ON tbl_request.description = tbl_product.id
+                        tbl_product ON tbl_it_request.description = tbl_product.id
                     JOIN 
-                        tbl_user ON tbl_request.sales_person = tbl_user.id
+                        tbl_user ON tbl_it_request.sales_person = tbl_user.id
                     ORDER BY 
-                        tbl_request.id ASC
+                        tbl_it_request.id ASC
                 ";
                 // Execute Query
                 $res = mysqli_query($conn, $sql);
