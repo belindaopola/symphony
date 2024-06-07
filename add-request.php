@@ -183,13 +183,13 @@ if (isset($_POST['submit'])) {
             <div class="row mb-4">
                 <label for="amount" class="col-sm-3 col-form-label">Amount:</label>
                 <div class="col-sm-5">
-                    <input type="number" id="amount" name="amount" class="form-control" placeholder="Enter amount" required>
+                    <input type="float" id="amount" name="amount" class="form-control" placeholder="Enter amount" required>
                 </div>
             </div>
             <div class="row mb-4">
                 <label for="vat" class="col-sm-3 col-form-label">VAT:</label>
                 <div class="col-sm-5">
-                    <input type="number" id="vat" name="vat" class="form-control" placeholder="Enter VAT" required>
+                    <input type="float" id="vat" name="vat" class="form-control" placeholder="Enter VAT" required>
                 </div>
             </div>
             <div class="row mb-4">
