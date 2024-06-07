@@ -80,7 +80,7 @@ if (isset($_POST['submit'])) {
 
     if ($res == TRUE) {
         $_SESSION['add'] = "<div class='success'>Request Added Successfully.</div>";
-                                                header("location:" . SITEURL . 'manage-request.php');
+                                                header("location:" . SITEURL . 'manage-it-request.php');
     } else {
         $_SESSION['add'] = "<div class='error'>Failed to Add Request.</div>";
         header("location:" . SITEURL . 'add-it-request.php');
