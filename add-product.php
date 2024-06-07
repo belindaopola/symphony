@@ -25,12 +25,6 @@
                 </div>
             </div>
             <div class="row mb-4">
-                <label for="inputPrice" class="col-sm-1 col-form-label">Price:</label>
-                <div class="col-sm-3">
-                    <input type="number" id="price" name="price" placeholder="Enter Product Price" class="form-control" required>
-                </div>
-            </div>
-            <div class="row mb-4">
                 <label for="image" class="col-sm-1 col-form-label">Select Image:</label>
                 <div class="col-sm-3">
                     <input type="file" id="image" name="image" class="form-control">
