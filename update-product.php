@@ -36,14 +36,20 @@
         <form action="" method="POST" enctype="multipart/form-data">  
             
             <div class="row mb-4">
-                <label for="inputDescription" class="col-sm-1 col-form-label">Description:</label>
+                <label for="inputTitle" class="col-sm-1 col-form-label">Title:</label>
                 <div class="col-sm-3"> 
                 <input type="text" id="title" name="title" value="<?php echo $title; ?>" class="form-control">
                 </div>
             </div>
+            <div class="row mb-4">
+                <label for="inputDescription" class="col-sm-1 col-form-label">Description:</label>
+                <div class="col-sm-3"> 
+                <textarea type="text" id="description" name="description" value="<?php echo $description; ?>" class="form-control"></textarea>
+                </div>
+            </div>
 
             <div class="row mb-4">
-                <label for="inputSection" class="col-sm-1 col-form-label">Description:</label>
+                <label for="inputSection" class="col-sm-1 col-form-label">Section:</label>
                 <div class="col-sm-3"> 
                     <select name="section" >
                         <?php 
