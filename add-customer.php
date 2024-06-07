@@ -4,13 +4,44 @@
     <div class="wrapper">
         <h1 class="row mb-4">Add Customer</h1>
 
-        <?php 
-            if(isset($_SESSION['upload']))
-            {
-                echo $_SESSION['upload'];
-                unset($_SESSION['upload']);
-            }
-        ?>
+<?php 
+
+//Check whether the button is clicked or not
+if(isset($_POST['submit']))
+{
+    //Add the customer to the Database
+    
+    //Get the Data from Form
+    $customer_name = $_POST['name'];
+    $customer_contact = $_POST['contact'];
+    $customer_email = $_POST['email'];
+    $customer_address = $_POST['address'];
+
+    //Check whether radio buttons for featured and active are checked or not
+    $featured = isset($_POST['featured']) ? $_POST['featured'] : "No"; // Setting the default value
+    $active = isset($_POST['active']) ? $_POST['active'] : "No"; // Setting the default value
+
+    // Insert Into Database
+    $sql2 = "INSERT INTO tbl_customer (customer_name, customer_contact, customer_email, customer_address, featured, active) VALUES ('$customer_name', '$customer_contact', '$customer_email', '$customer_address', '$featured', '$active')";
+    
+    //Execute the Query
+    $res2 = mysqli_query($conn, $sql2);
+
+    //Check whether data inserted or not
+    if($res2)
+    {
+        //Data inserted successfully
+        $_SESSION['add'] = "<div class='success'>Customer Added Successfully.</div>";
+        header('location:'.SITEURL.'manage-customer.php');
+    }
+    else
+    {
+        //Failed to insert data
+        $_SESSION['add'] = "<div class='error'>Failed to Add Customer.</div>";
+        header('location:'.SITEURL.'add-customer.php');
+    }
+}
+?>
 
         <form action="" method="POST" enctype="multipart/form-data">
             <div class="row mb-4">
@@ -59,44 +90,7 @@
         </form>
 
         
-        <?php 
-
-            //Check whether the button is clicked or not
-            if(isset($_POST['submit']))
-            {
-                //Add the customer to the Database
-                
-                //Get the Data from Form
-                $customer_name = $_POST['name'];
-                $customer_contact = $_POST['contact'];
-                $customer_email = $_POST['email'];
-                $customer_address = $_POST['address'];
-
-                //Check whether radio buttons for featured and active are checked or not
-                $featured = isset($_POST['featured']) ? $_POST['featured'] : "No"; // Setting the default value
-                $active = isset($_POST['active']) ? $_POST['active'] : "No"; // Setting the default value
-
-                // Insert Into Database
-                $sql2 = "INSERT INTO tbl_customer (customer_name, customer_contact, customer_email, customer_address, featured, active) VALUES ('$customer_name', '$customer_contact', '$customer_email', '$customer_address', '$featured', '$active')";
-                
-                //Execute the Query
-                $res2 = mysqli_query($conn, $sql2);
-
-                //Check whether data inserted or not
-                if($res2)
-                {
-                    //Data inserted successfully
-                    $_SESSION['add'] = "<div class='success'>Customer Added Successfully.</div>";
-                    header('location:'.SITEURL.'manage-customer.php');
-                }
-                else
-                {
-                    //Failed to insert data
-                    $_SESSION['add'] = "<div class='error'>Failed to Add Customer.</div>";
-                    header('location:'.SITEURL.'add-customer.php');
-                }
-            }
-        ?>
+       
     </div>
 </div>
 
