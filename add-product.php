@@ -1,15 +1,42 @@
 <?php include('partials/menu.php'); ?>
 
+<?php 
+            if(isset($_POST['submit'])) {
+                $title = mysqli_real_escape_string($conn, $_POST['title']);
+                $description = mysqli_real_escape_string($conn, $_POST['description']);
+                $section = mysqli_real_escape_string($conn, $_POST['section']);
+                $featured = isset($_POST['featured']) ? mysqli_real_escape_string($conn, $_POST['featured']) : 'No';
+                $active = isset($_POST['active']) ? mysqli_real_escape_string($conn, $_POST['active']) : 'No';
+
+               
+
+        $sql2 = "INSERT INTO tbl_product SET 
+            title = '$title',
+            description = '$description',
+            section_id = $section,
+            featured = '$featured',
+            active = '$active'
+        ";
+
+        $res2 = mysqli_query($conn, $sql2);
+
+        if($res2 == true) 
+        {
+            $_SESSION['add'] = "<div class='success'>Product Added Successfully.</div>";
+            header('location:'.SITEURL.'manage-product.php');
+        } 
+        else 
+        {
+            $_SESSION['add'] = "<div class='error'>Failed to Add Product.</div>";
+            header('location:'.SITEURL.'manage-product.php');
+        }                
+}
+?>
+
+
 <div class="main-content">
     <div class="wrapper">
         <h1 class="row mb-4">Add Product</h1>
-
-        <?php 
-            if(isset($_SESSION['upload'])) {
-                echo $_SESSION['upload'];
-                unset($_SESSION['upload']);
-            }
-        ?>
 
         <form action="" method="POST" enctype="multipart/form-data">
             <div class="row mb-4">
@@ -22,12 +49,6 @@
                 <label for="inputDescription" class="col-sm-1 col-form-label">Description:</label>
                 <div class="col-sm-3">
                     <textarea id="description" name="description" placeholder="Enter Product Description" class="form-control" required></textarea>
-                </div>
-            </div>
-            <div class="row mb-4">
-                <label for="image" class="col-sm-1 col-form-label">Select Image:</label>
-                <div class="col-sm-3">
-                    <input type="file" id="image" name="image" class="form-control">
                 </div>
             </div>
 
@@ -75,56 +96,4 @@
             <input type="submit" name="submit" value="Add Product" class="btn btn-primary col-sm-1">
         </form>
 
-        <?php 
-            if(isset($_POST['submit'])) {
-                $title = mysqli_real_escape_string($conn, $_POST['title']);
-                $description = mysqli_real_escape_string($conn, $_POST['description']);
-                $price = mysqli_real_escape_string($conn, $_POST['price']);
-                $section = mysqli_real_escape_string($conn, $_POST['section']);
-                $featured = isset($_POST['featured']) ? mysqli_real_escape_string($conn, $_POST['featured']) : 'No';
-                $active = isset($_POST['active']) ? mysqli_real_escape_string($conn, $_POST['active']) : 'No';
-
-                if(isset($_FILES['image']['name']) && $_FILES['image']['name'] != "") {
-                    $image_name = $_FILES['image']['name'];
-                    $ext = pathinfo($image_name, PATHINFO_EXTENSION);
-                    $image_name = "Product-Name-".rand(0000,9999).".".$ext;
-
-                    $src = $_FILES['image']['tmp_name'];
-                    $dst = "images/product/".$image_name;
-
-                    $upload = move_uploaded_file($src, $dst);
-
-                    if($upload == false) {
-                        $_SESSION['upload'] = "<div class='error'>Failed to Upload Image.</div>";
-                        header('location:'.SITEURL.'add-product.php');
-                        die();
-                    }
-                } 
-                else {
-                $image_name = "";
-                }
-
-        $sql2 = "INSERT INTO tbl_product SET 
-            title = '$title',
-            description = '$description',
-            price = $price,
-            image_name = '$image_name',
-            section_id = $section,
-            featured = '$featured',
-            active = '$active'
-        ";
-
-        $res2 = mysqli_query($conn, $sql2);
-
-        if($res2 == true) 
-        {
-            $_SESSION['add'] = "<div class='success'>Product Added Successfully.</div>";
-            header('location:'.SITEURL.'manage-product.php');
-        } 
-        else 
-        {
-            $_SESSION['add'] = "<div class='error'>Failed to Add Product.</div>";
-            header('location:'.SITEURL.'manage-product.php');
-        }                
-}
-?>
+        

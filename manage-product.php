@@ -20,12 +20,6 @@
                     unset($_SESSION['delete']);
                 }
 
-                if(isset($_SESSION['upload']))
-                {
-                    echo $_SESSION['upload'];
-                    unset($_SESSION['upload']);
-                }
-
                 if(isset($_SESSION['unauthorize']))
                 {
                     echo $_SESSION['unauthorize'];
