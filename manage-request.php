@@ -28,7 +28,7 @@
                 <th>CSR Ref.</th>
                 <th>Request Date</th>
                 <th>Customer Name</th>
-                <th>Description</th>
+                <th>Title</th>
                 <th>Quotation</th>
                 <th>Customer PO</th>
                 <th>Costing Sheet</th>
@@ -48,7 +48,7 @@
                         tbl_request.id,
                         tbl_request.request_date,
                         tbl_customer.customer_name,
-                        tbl_product.description,
+                        tbl_product.title,
                         tbl_request.quotation,
                         tbl_request.customer_po,
                         tbl_request.costing_sheet,
@@ -63,7 +63,7 @@
                     JOIN 
                         tbl_customer ON tbl_request.customer_name = tbl_customer.id
                     JOIN 
-                        tbl_product ON tbl_request.description = tbl_product.id
+                        tbl_product ON tbl_request.title = tbl_product.id
                     JOIN 
                         tbl_user ON tbl_request.sales_person = tbl_user.id
                     ORDER BY 
@@ -83,7 +83,7 @@
                         $id = $row['id'];
                         $request_date = $row['request_date'];
                         $customer_name = $row['customer_name'];
-                        $description = $row['description'];
+                        $title = $row['title'];
                         $quotation = $row['quotation'];
                         $customer_po = $row['customer_po'];
                         $costing_sheet = $row['costing_sheet'];
@@ -99,7 +99,7 @@
                             <td><?php echo "TS" . date("Y") . "/" . sprintf('%03d', $sn++); ?></td> <!-- Modify to pick the request_date not current year-->
                             <td><?php echo $request_date; ?></td>
                             <td><?php echo $customer_name; ?></td>
-                            <td><?php echo $description; ?></td>
+                            <td><?php echo $title; ?></td>
                             <td>
                                 <?php
                                     // Check whether quotation attachment is available or not

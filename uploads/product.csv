@@ -1,0 +1,36 @@
+id,title,description,section,featured,active
+1,PC Parts,Mouse,IT Sales,Yes,Yes
+2,PC Parts,Memory,IT Sales,Yes,Yes
+3,PC Parts,Hard Disk,IT Sales,Yes,Yes
+4,PC Parts,Keyboard,IT Sales,Yes,Yes
+5,PCs and Laptops,Lenovo,IT Sales,Yes,Yes
+6,PCs and Laptops,HP,IT Sales,Yes,Yes
+7,UPS Parts,Capacitors,Critical Power Sales,Yes,Yes
+8,UPS Parts,Assorted,Critical Power Sales,Yes,Yes
+9,UPS Parts,Power interface board,Critical Power Sales,Yes,Yes
+10,UPS Parts,Inverter driver,Critical Power Sales,Yes,Yes
+11,UPS Parts,Rectifier,Critical Power Sales,Yes,Yes
+12,UPS Parts,Graphic display,Critical Power Sales,Yes,Yes
+13,UPS,ABB,Critical Power Sales,Yes,Yes
+14,UPS,GE,Critical Power Sales,Yes,Yes
+15,Batteries,12V 7Ah,Critical Power Sales,Yes,Yes
+16,Batteries,12V 18Ah,Critical Power Sales,Yes,Yes
+17,Batteries,124 40Ah,Critical Power Sales,Yes,Yes
+18,Batteries,125 100Ah,Critical Power Sales,Yes,Yes
+19,Batteries,126 200Ah,Critical Power Sales,Yes,Yes
+20,Preventive Maintenance,Scheduled,IT Maintenance,Yes,Yes
+21,Repair Maintenance,Intervention,IT Maintenance,Yes,Yes
+22,Server Configuration,Installation,IT Maintenance,Yes,Yes
+23,Upgrade Service,System & Software Upgrade,IT Maintenance,Yes,Yes
+24,Preventive Maintenance,Scheduled,Critical Power Maintenance,Yes,Yes
+25,Repair Maintenance,Intervention,Critical Power Maintenance,Yes,Yes
+26,UPS Commissioning,Commissioning,Critical Power Maintenance,Yes,Yes
+27,Battery Installation,Installation,Critical Power Maintenance,Yes,Yes
+28,IT Customer surveys,IT Customer surveys,Technical Presales,Yes,Yes
+29,CP Customer surveys,CP Customer surveys,Technical Presales,Yes,Yes
+30,Manufacturer's warranty,Manufacturer's warranty,Critical Power Warranty,Yes,Yes
+31,Extended warranty,Extended warranty,Critical Power Warranty,Yes,Yes
+32,AMC,AMC,Critical Power Warranty,Yes,Yes
+33,Manufacturer's warranty,Manufacturer's warranty,IT Warranty,Yes,Yes
+34,Extended warranty,Extended warranty,IT Warranty,Yes,Yes
+35,AMC,AMC,IT Warranty,Yes,Yes

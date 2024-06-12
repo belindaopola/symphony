@@ -3,7 +3,6 @@
 <?php 
             if(isset($_POST['submit'])) {
                 $title = mysqli_real_escape_string($conn, $_POST['title']);
-                $description = mysqli_real_escape_string($conn, $_POST['description']);
                 $section = mysqli_real_escape_string($conn, $_POST['section']);
                 $featured = isset($_POST['featured']) ? mysqli_real_escape_string($conn, $_POST['featured']) : 'No';
                 $active = isset($_POST['active']) ? mysqli_real_escape_string($conn, $_POST['active']) : 'No';
@@ -12,7 +11,6 @@
 
         $sql2 = "INSERT INTO tbl_product SET 
             title = '$title',
-            description = '$description',
             section_id = $section,
             featured = '$featured',
             active = '$active'
@@ -43,12 +41,6 @@
                 <label for="inputTitle" class="col-sm-1 col-form-label">Title:</label>
                 <div class="col-sm-3"> 
                     <input type="text" id="title" name="title" placeholder="Enter Product Name" class="form-control" required>
-                </div>
-            </div>
-            <div class="row mb-4">
-                <label for="inputDescription" class="col-sm-1 col-form-label">Description:</label>
-                <div class="col-sm-3">
-                    <textarea id="description" name="description" placeholder="Enter Product Description" class="form-control" required></textarea>
                 </div>
             </div>
 

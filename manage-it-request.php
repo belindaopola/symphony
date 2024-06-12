@@ -28,7 +28,7 @@
                 <th>CSR Ref.</th>
                 <th>Request Date</th>
                 <th>Customer Name</th>
-                <th>Description</th>
+                <th>Title</th>
                 <th>Quotation</th>
                 <th>Customer PO</th>
                 <th>Costing Sheet</th>
@@ -48,7 +48,7 @@
                     JOIN 
                         tbl_customer ON tbl_it_request.customer_name = tbl_customer.id
                     JOIN 
-                        tbl_product ON tbl_it_request.description = tbl_product.id
+                        tbl_product ON tbl_it_request.title = tbl_product.id
                     JOIN 
                         tbl_user ON tbl_it_request.sales_person = tbl_user.id
                     ORDER BY 
@@ -68,7 +68,7 @@
                         $id = $row['id'];
                         $request_date = $row['request_date'];
                         $customer_name = $row['customer_name'];
-                        $description = $row['description'];
+                        $title = $row['title'];
                         $quotation = $row['quotation'];
                         $customer_po = $row['customer_po'];
                         $costing_sheet = $row['costing_sheet'];
@@ -84,7 +84,7 @@
                             <td><?php echo "IT" . date("Y") . "/" . sprintf('%03d', $sn++); ?></td> <!-- Modify to pick the request_date not current year-->
                             <td><?php echo $request_date; ?></td>
                             <td><?php echo $customer_name; ?></td>
-                            <td><?php echo $description; ?></td>
+                            <td><?php echo $title; ?></td>
                             <td>
                                 <?php
                                     // Check whether quotation attachment is available or not

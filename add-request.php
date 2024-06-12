@@ -11,6 +11,7 @@ if (isset($_POST['submit'])) {
     $vat = mysqli_real_escape_string($conn, $_POST['vat']);
     $sales_person = mysqli_real_escape_string($conn, $_POST['sales_person']);
     $status = mysqli_real_escape_string($conn, $_POST['status']);
+    $description = mysqli_real_escape_string($conn, $_POST['description']);
 
     // Handle file uploads; get the last inserted ID to generate unique names for the files and upload files
     if ($_FILES['quotation']['error'] === UPLOAD_ERR_OK) {
@@ -64,7 +65,8 @@ if (isset($_POST['submit'])) {
     // Update the database with the file names
     $sql = "INSERT INTO tbl_request SET 
             customer_name='$customer_name', 
-            description='$title', 
+            title='$title', 
+            description='$description', 
             currency='$currency', 
             price='$amount', 
             vat='$vat', 
@@ -128,7 +130,7 @@ if (isset($_POST['submit'])) {
             </script>
 
             <div class="row mb-4">
-                <label for="title" class="col-sm-3 col-form-label">Product Description:</label>
+                <label for="title" class="col-sm-3 col-form-label">Product:</label>
                 <div class="col-sm-5">
                     <select id="title" name="title" class="form-control">
                         <option value="">Select Product/Service</option>
@@ -153,11 +155,19 @@ if (isset($_POST['submit'])) {
             </script>
 
             <div class="row mb-4">
+                <label for="description" class="col-sm-3 col-form-label">Description:</label>
+                <div class="col-sm-5">
+                    <input type="text-area" id="description" name="description" class="form-control">
+                </div>
+            </div>
+
+            <div class="row mb-4">
                 <label for="quotation" class="col-sm-3 col-form-label">Add Quotation:</label>
                 <div class="col-sm-5">
                     <input type="file" id="quotation" name="quotation" class="form-control">
                 </div>
             </div>
+
             <div class="row mb-4">
                 <label for="customer-po" class="col-sm-3 col-form-label">Add Customer's PO:</label>
                 <div class="col-sm-5">
@@ -221,9 +231,11 @@ if (isset($_POST['submit'])) {
                 <label for="status" class="col-sm-3 col-form-label">Status:</label>
                 <div class="col-sm-5">
                     <select id="status" name="status" class="form-control">
-                        <option value="Pending">Pending</option>
-                        <option value="Approved">Approved</option>
-                        <option value="Rejected">Rejected</option>
+                        <option value="Invoiced">Invoiced</option>
+                        <option value="Order Placement">Order Placement</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Paid">Paid</option>
+
                     </select>
                 </div>
             </div>

@@ -11,6 +11,7 @@ if (isset($_POST['submit'])) {
     $vat = mysqli_real_escape_string($conn, $_POST['vat']);
     $sales_person = mysqli_real_escape_string($conn, $_POST['sales_person']);
     $status = mysqli_real_escape_string($conn, $_POST['status']);
+    $description = mysqli_real_escape_string($conn, $_POST['description']);
 
     // Handle file uploads; get the last inserted ID to generate unique names for the files and upload files
     if ($_FILES['quotation']['error'] === UPLOAD_ERR_OK) {
@@ -20,8 +21,8 @@ if (isset($_POST['submit'])) {
         $q_result = mysqli_query($conn, $q_last_id_query);
         $q_row = mysqli_fetch_assoc($q_result);
         $q_last_id = $q_row['q_last_id'] ?? 0;
-        $quotation_new_name = "Quotation_IT" . date("Y") . "_" . sprintf('%03d', $q_last_id + 1) . '.' . $quotation_ext;
-        $quotation_path = 'uploads/files_it/quotation/' . $quotation_new_name;
+        $quotation_new_name = "Quotation_TS" . date("Y") . "_" . sprintf('%03d', $q_last_id + 1) . '.' . $quotation_ext;
+        $quotation_path = 'uploads/files_ts/quotation/' . $quotation_new_name;
         move_uploaded_file($_FILES['quotation']['tmp_name'], $quotation_path);
         $quotation = $quotation_new_name;
     } else {
@@ -35,8 +36,8 @@ if (isset($_POST['submit'])) {
         $p_result = mysqli_query($conn, $p_last_id_query);
         $p_row = mysqli_fetch_assoc($p_result);
         $p_last_id = $p_row['p_last_id'] ?? 0;
-        $customer_po_new_name = "PO_IT" . date("Y") . "_" . sprintf('%03d', $p_last_id + 1) . '.' . $customer_po_ext;
-        $customer_po_path = 'uploads/files_it/po/' . $customer_po_new_name;
+        $customer_po_new_name = "Customer_PO_TS" . date("Y") . "_" . sprintf('%03d', $p_last_id + 1) . '.' . $customer_po_ext;
+        $customer_po_path = 'uploads/files_ts/po/' . $customer_po_new_name;
         move_uploaded_file($_FILES['customer_po']['tmp_name'], $customer_po_path);
         $customer_po = $customer_po_new_name;
     } else {
@@ -50,8 +51,8 @@ if (isset($_POST['submit'])) {
         $c_result = mysqli_query($conn, $c_last_id_query);
         $c_row = mysqli_fetch_assoc($c_result);
         $c_last_id = $c_row['c_last_id'] ?? 0;
-        $costing_sheet_new_name = "Costing_IT" . date("Y") . "_" . sprintf('%03d', $c_last_id + 1) . '.' . $costing_sheet_ext;
-        $costing_sheet_path = 'uploads/files_it/costing/' . $costing_sheet_new_name;
+        $costing_sheet_new_name = "Costing_TS" . date("Y") . "_" . sprintf('%03d', $c_last_id + 1) . '.' . $costing_sheet_ext;
+        $costing_sheet_path = 'uploads/files_ts/costing/' . $costing_sheet_new_name;
         move_uploaded_file($_FILES['costing_sheet']['tmp_name'], $costing_sheet_path);
         $costing_sheet = $costing_sheet_new_name;
     } else {
@@ -64,7 +65,8 @@ if (isset($_POST['submit'])) {
     // Update the database with the file names
     $sql = "INSERT INTO tbl_it_request SET 
             customer_name='$customer_name', 
-            description='$title', 
+            title='$title', 
+            description='$description', 
             currency='$currency', 
             price='$amount', 
             vat='$vat', 
@@ -128,7 +130,7 @@ if (isset($_POST['submit'])) {
             </script>
 
             <div class="row mb-4">
-                <label for="title" class="col-sm-3 col-form-label">Product Description:</label>
+                <label for="title" class="col-sm-3 col-form-label">Product:</label>
                 <div class="col-sm-5">
                     <select id="title" name="title" class="form-control">
                         <option value="">Select Product/Service</option>
@@ -153,11 +155,19 @@ if (isset($_POST['submit'])) {
             </script>
 
             <div class="row mb-4">
+                <label for="description" class="col-sm-3 col-form-label">Description:</label>
+                <div class="col-sm-5">
+                    <input type="text-area" id="description" name="description" class="form-control">
+                </div>
+            </div>
+
+            <div class="row mb-4">
                 <label for="quotation" class="col-sm-3 col-form-label">Add Quotation:</label>
                 <div class="col-sm-5">
                     <input type="file" id="quotation" name="quotation" class="form-control">
                 </div>
             </div>
+
             <div class="row mb-4">
                 <label for="customer-po" class="col-sm-3 col-form-label">Add Customer's PO:</label>
                 <div class="col-sm-5">
@@ -221,9 +231,11 @@ if (isset($_POST['submit'])) {
                 <label for="status" class="col-sm-3 col-form-label">Status:</label>
                 <div class="col-sm-5">
                     <select id="status" name="status" class="form-control">
-                        <option value="Pending">Pending</option>
-                        <option value="Approved">Approved</option>
-                        <option value="Rejected">Rejected</option>
+                        <option value="Invoiced">Invoiced</option>
+                        <option value="Order Placement">Order Placement</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Paid">Paid</option>
+
                     </select>
                 </div>
             </div>

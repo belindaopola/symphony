@@ -37,7 +37,6 @@
                 <tr>
                     <th>S.N.</th>
                     <th>Title</th>
-                    <th>Description</th>
                     <th>Featured</th>
                     <th>Active</th>
                     <th>Actions</th>
@@ -65,7 +64,6 @@
                             //get the values from individual columns
                             $id = $row['id'];
                             $title = $row['title'];
-                            $description = $row['description'];
                             $featured = $row['featured'];
                             $active = $row['active'];
                             ?>
@@ -73,7 +71,6 @@
                             <tr>
                                 <td><?php echo $sn++; ?>. </td>
                                 <td><?php echo $title; ?></td>
-                                <td><?php echo $description; ?></td>
                                 <td><?php echo $featured; ?></td>
                                 <td><?php echo $active; ?></td>
                                 <td>
