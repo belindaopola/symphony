@@ -1,61 +1,152 @@
-<?php include('partials/menu.php'); ?>
+<?php 
+include('partials/menu.php'); 
 
-<div class="main-content">
+// Check whether id is set or not
+if(isset($_GET['id'])) {
+    // Get the request details
+    $id = $_GET['id'];
+}
+// SQL Query to get the request details with joins
+$sql = "
+SELECT 
+    tbl_request.id,
+    tbl_request.request_date,
+    tbl_customer.customer_name,
+    tbl_product.title,
+    tbl_request.quotation,
+    tbl_request.customer_po,
+    tbl_request.costing_sheet,
+    tbl_request.currency,
+    tbl_request.price,
+    tbl_request.vat,
+    tbl_request.total,
+    tbl_request.status,
+    tbl_user.user_name
+FROM 
+    tbl_request
+JOIN 
+    tbl_customer ON tbl_request.customer_name = tbl_customer.id
+JOIN 
+    tbl_product ON tbl_request.title = tbl_product.id
+JOIN 
+    tbl_user ON tbl_request.sales_person = tbl_user.id
+WHERE 
+    tbl_request.id  =$id";
+
+// Execute Query
+$res = mysqli_query($conn, $sql);
+// Count Rows
+$count = mysqli_num_rows($res);
+
+if($count == 1) {
+    // Detail Available
+    $row = mysqli_fetch_assoc($res);
+
+    $customer_name = $row['customer_name'];
+    $title=$row['title']; 
+    $description = $row['description'];
+    $quotation = $row['quotation'];            
+    $customer_po = $row['customer_po'];
+    $costing_sheet = $row['costing_sheet'];   
+    $currency = $row['currency'];
+    $price = $row['price'];
+    $vat = $row['vat'];
+    $sales_person = $row['sales_person']; 
+    $status = $row['status'];                                
+} else {
+    // Redirect to Manage request
+    header('location:'.SITEURL.'manage-request.php');
+    exit();
+}
+
+// Check whether Update Button is Clicked or Not
+// Handle form submission
+if (isset($_POST['submit'])) {
+    // Retrieve and sanitize form data
+    $customer_name = mysqli_real_escape_string($conn, $_POST['customer_name']);
+    $title = mysqli_real_escape_string($conn, $_POST['title']);
+    $currency = mysqli_real_escape_string($conn, $_POST['currency']);
+    $amount = mysqli_real_escape_string($conn, $_POST['amount']);
+    $vat = mysqli_real_escape_string($conn, $_POST['vat']);
+    $sales_person = mysqli_real_escape_string($conn, $_POST['sales_person']);
+    $status = mysqli_real_escape_string($conn, $_POST['status']);
+    $description = mysqli_real_escape_string($conn, $_POST['description']);
+
+    // Initialize file names
+    $quotation = $customer_po = $costing_sheet = "";
+
+    // Function to handle file upload
+    function handleFileUpload($file, $prefix, $conn) {
+        if ($file['error'] === UPLOAD_ERR_OK) {
+            $file_name = $file['name'];
+            $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
+            $last_id_query = "SELECT MAX(id) AS last_id FROM tbl_it_request";
+            $result = mysqli_query($conn, $last_id_query);
+            $row = mysqli_fetch_assoc($result);
+            $last_id = $row['last_id'] ?? 0;
+            $new_name = $prefix . "_TS" . date("Y") . "_" . sprintf('%03d', $last_id + 1) . '.' . $file_ext;
+            $upload_path = 'uploads/files_ts/' . strtolower($prefix) . '/' . $new_name;
+            move_uploaded_file($file['tmp_name'], $upload_path);
+            return $new_name;
+        } else {
+            return "";
+        }
+    }
+
+    // Handle file uploads
+    $quotation = handleFileUpload($_FILES['quotation'], 'Quotation', $conn);
+    $customer_po = handleFileUpload($_FILES['customer_po'], 'Customer_PO', $conn);
+    $costing_sheet = handleFileUpload($_FILES['costing_sheet'], 'Costing', $conn);
+
+    // Calculate total
+    $total = $amount + $vat;
+
+    // Update the database with the file names
+    $sql = "INSERT INTO tbl_it_request SET 
+            customer_name='$customer_name', 
+            title='$title', 
+            description='$description', 
+            currency='$currency', 
+            price='$amount', 
+            vat='$vat', 
+            total='$total', 
+            sales_person='$sales_person', 
+            status='$status', 
+            quotation='$quotation', 
+            customer_po='$customer_po', 
+            costing_sheet='$costing_sheet'";
+
+    // Execute query
+    $res = mysqli_query($conn, $sql);
+
+    if ($res == TRUE) {
+        $_SESSION['add'] = "<div class='success'>Request Added Successfully.</div>";
+        header("location:" . SITEURL . 'manage-it-request.php');
+    } else {
+        $_SESSION['add'] = "<div class='error'>Failed to Add Request.</div>";
+        header("location:" . SITEURL . 'add-it-request.php');
+    }
+    exit(); // Ensure no further code is executed
+}
+?>
+
+<section class="main-content">
     <div class="wrapper">
-        <h1 class="row mb-4">Update TS Request</h1>
+        <h1 class="text-center row mb-4">Create New IT CSR</h1>
 
         <?php 
-        
-            //CHeck whether id is set or not
-            if(isset($_GET['id']))
-            {
-                //GEt the request Details
-                $id=$_GET['id'];
-
-                //Get all other details based on this id
-                //SQL Query to get the request details
-                $sql = "SELECT * FROM tbl_request WHERE id=$id";
-                //Execute Query
-                $res = mysqli_query($conn, $sql);
-                //Count Rows
-                $count = mysqli_num_rows($res);
-
-                if($count==1)
-                {
-                    //Detail Availble
-                    $row=mysqli_fetch_assoc($res);
-
-                    $description = $row['description'];
-                    $currency = $row['currency'];
-                    $price = $row['price'];
-                    $vat = $row['vat'];
-                    $quotation = $row['quotation'];
-                    $status = $row['status'];
-                    $customer_name = $row['customer_name'];
-                    $customer_po = $row['customer_po'];
-                    $costing_sheet = $row['costing_sheet'];    
-                    $sales_person = $row['sales_person'];                                 
-                }
-                else
-                {
-                    //DEtail not Available/
-                    //Redirect to Manage request
-                    header('location:'.SITEURL.'manage-request.php');
-                }
+            if (isset($_SESSION['add'])) {
+                echo $_SESSION['add']; // Display session message if set
+                unset($_SESSION['add']); // Remove session message
             }
-            else
-            {
-                //REdirect to Manage request PAge
-                header('location:'.SITEURL.'manage-request.php');
-            }
-        
         ?>
 
-        <form action="" method="POST">
+        <form action="" method="POST" class="request" enctype="multipart/form-data">
+
             <div class="row mb-4">
-                <label for="inputCustomerName" class="col-sm-2 col-form-label">Customer Name:</label>
-                <div class="col-sm-3"> 
-                    <select id="customer-name" name="customer_name" class="form-control">
+                <label for="customer_name" class="col-sm-3 col-form-label">Customer Name:</label>
+                <div class="col-sm-5">
+                    <select id="customer_name" name="customer_name" class="form-control">
                         <option value="">Select Customer</option>
                         <?php 
                             $sql2 = "SELECT id, customer_name FROM tbl_customer";
@@ -65,36 +156,72 @@
                             }
                         ?>
                         <option value="new">Add New Customer</option>
-                    </select>                
+                    </select>
                 </div>
-            </div>  
+            </div>
+
+            <script>
+                document.getElementById('customer_name').addEventListener('change', function() {
+                    if (this.value === 'new') {
+                        window.location.href = 'add-customer.php';
+                    }
+                });
+            </script>
+
             <div class="row mb-4">
-                <label for="inputDescription" class="col-sm-2 col-form-label">Description:</label>
-                <div class="col-sm-3"> 
-                <input type="text" id="description" name="description" value="<?php echo $description; ?>" class="form-control">
+                <label for="title" class="col-sm-3 col-form-label">Product:</label>
+                <div class="col-sm-5">
+                    <select id="title" name="title" class="form-control">
+                        <option value="">Select Product/Service</option>
+                        <?php 
+                            $sql3 = "SELECT id, title FROM tbl_product";
+                            $res3 = mysqli_query($conn, $sql3);
+                            while ($row = mysqli_fetch_assoc($res3)) {
+                                echo "<option value='" . $row['id'] . "'>" . $row['title'] . "</option>";
+                            }
+                        ?>
+                        <option value="new">Add New Product/Service</option>
+                    </select>
+                </div>
+            </div>
+
+            <script>
+                document.getElementById('title').addEventListener('change', function() {
+                    if (this.value === 'new') {
+                        window.location.href = 'add-product.php';
+                    }
+                });
+            </script>
+
+            <div class="row mb-4">
+                <label for="description" class="col-sm-3 col-form-label">Description:</label>
+                <div class="col-sm-5">
+                    <textarea id="description" name="description" class="form-control"></textarea>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <label for="quotation" class="col-sm-3 col-form-label">Add Quotation:</label>
+                <div class="col-sm-5">
+                    <input type="file" id="quotation" name="quotation" class="form-control">
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <label for="customer_po" class="col-sm-3 col-form-label">Add Customer's PO:</label>
+                <div class="col-sm-5">
+                    <input type="file" id="customer_po" name="customer_po" class="form-control">
                 </div>
             </div>
             <div class="row mb-4">
-                <label for="inputquotation" class="col-sm-2 col-form-label">Quotation:</label>
-                <div class="col-sm-3"> 
-                <input type="file" id="quotation" name="quotation" value="<?php echo $quotation; ?>" class="form-control">
+                <label for="costing_sheet" class="col-sm-3 col-form-label">Add Costing Sheet:</label>
+                <div class="col-sm-5">
+                    <input type="file" id="costing_sheet" name="costing_sheet" class="form-control">
                 </div>
             </div>
             <div class="row mb-4">
-                <label for="inputPo" class="col-sm-2 col-form-label">Customer PO:</label>
-                <div class="col-sm-3"> 
-                <input type="file" id="customer_po" name="customer_po" value="<?php echo $customer_po; ?>" class="form-control">
-                </div>
-            </div>
-            <div class="row mb-4">
-                <label for="inputCostingsheet" class="col-sm-2 col-form-label">Costing Sheet:</label>
-                <div class="col-sm-3"> 
-                <input type="file" id="costing_sheet" name="costing_sheet" value="<?php echo $costing_sheet; ?>" class="form-control">
-                </div>
-            </div>
-            <div class="row mb-4">
-                <label for="currency" class="col-sm-2 col-form-label">Currency:</label>
-                <div class="col-sm-3">
+                <label for="currency" class="col-sm-3 col-form-label">Currency:</label>
+                <div class="col-sm-5">
                     <select id="currency" name="currency" class="form-control">
                         <option value="USD">USD</option>
                         <option value="EUR">EUR</option>
@@ -103,20 +230,20 @@
                 </div>
             </div>
             <div class="row mb-4">
-                <label for="inputPrice" class="col-sm-2 col-form-label">Price:</label>
-                <div class="col-sm-3"> 
-                <input type="number" id="price" name="price" value="<?php echo $price; ?>" class="form-control">
+                <label for="amount" class="col-sm-3 col-form-label">Amount:</label>
+                <div class="col-sm-5">
+                    <input type="number" step="0.01" id="amount" name="amount" class="form-control" placeholder="Enter amount" required>
                 </div>
             </div>
             <div class="row mb-4">
-                <label for="inputVAT" class="col-sm-2 col-form-label">VAT:</label>
-                <div class="col-sm-3"> 
-                <input type="number" id="vat" name="vat" value="<?php echo $vat; ?>" class="form-control">
+                <label for="vat" class="col-sm-3 col-form-label">VAT:</label>
+                <div class="col-sm-5">
+                    <input type="number" step="0.01" id="vat" name="vat" class="form-control" placeholder="Enter VAT" required>
                 </div>
             </div>
             <div class="row mb-4">
-                <label for="sales_person" class="col-sm-2 col-form-label">Sales Person:</label>
-                <div class="col-sm-3">
+                <label for="sales_person" class="col-sm-3 col-form-label">Sales Person:</label>
+                <div class="col-sm-5">
                     <select id="sales_person" name="sales_person" class="form-control">
                         <option value="">Select Sales Person</option>
                         <?php 
@@ -126,82 +253,26 @@
                                 echo "<option value='" . $row['id'] . "'>" . $row['user_name'] . "</option>";
                             }
                         ?>
-                        <option value="new">Add New Sales Person</option>
                     </select>
                 </div>
             </div>
             <div class="row mb-4">
-                <label for="inputStatus" class="col-sm-2 col-form-label">Status:</label>
-                <div class="col-sm-3"> 
-                    <select name="status" class="form-control">
-                        <option <?php if($status=="requested"){echo "selected";} ?> value="requested">requested</option>
-                        <option <?php if($status=="On Delivery"){echo "selected";} ?> value="On Delivery">On Delivery</option>
-                        <option <?php if($status=="Delivered"){echo "selected";} ?> value="Delivered">Delivered</option>
-                        <option <?php if($status=="Cancelled"){echo "selected";} ?> value="Cancelled">Cancelled</option>
+                <label for="status" class="col-sm-3 col-form-label">Status:</label>
+                <div class="col-sm-5">
+                    <select id="status" name="status" class="form-control">
+                        <option value="Pending">Pending</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
                     </select>
                 </div>
             </div>
-                      
-        
-            <input type="hidden" name="id" value="<?php echo $id; ?>">
-            <input type="hidden" name="price" value="<?php echo $price; ?>">
-
-            <input type="submit" name="submit" value="Update request" class="btn btn-primary col-sm-1.2">      
+            <div class="row mb-4">
+                <div class="col-sm-offset-3 col-sm-5">
+                    <button type="submit" name="submit" class="btn btn-primary">Add Request</button>
+                </div>
+            </div>
         </form>
-
-
-        <?php 
-            //CHeck whether Update Button is Clicked or Not
-            if(isset($_POST['submit']))
-            {
-                //echo "Clicked";
-                //Get All the Values from Form
-                $id = $_POST['id'];
-                $price = $_POST['price'];
-                $qty = $_POST['qty'];
-
-                $total = $price * $qty;
-
-                $status = $_POST['status'];
-
-                $customer_name = $_POST['customer_name'];
-                $customer_contact = $_POST['customer_contact'];
-                $customer_email = $_POST['customer_email'];
-                $customer_address = $_POST['customer_address'];
-
-                //Update the Values
-                $sql2 = "UPDATE tbl_request SET 
-                    qty = $qty,
-                    total = $total,
-                    status = '$status',
-                    customer_name = '$customer_name',
-                    customer_contact = '$customer_contact',
-                    customer_email = '$customer_email',
-                    customer_address = '$customer_address'
-                    WHERE id=$id
-                ";
-
-                //Execute the Query
-                $res2 = mysqli_query($conn, $sql2);
-
-                //CHeck whether update or not
-                //And REdirect to Manage request with Message
-                if($res2==true)
-                {
-                    //Updated
-                    $_SESSION['update'] = "<div class='success'>request Updated Successfully.</div>";
-                    header('location:'.SITEURL.'manage-request.php');
-                }
-                else
-                {
-                    //Failed to Update
-                    $_SESSION['update'] = "<div class='error'>Failed to Update request.</div>";
-                    header('location:'.SITEURL.'manage-request.php');
-                }
-            }
-        ?>
-
     </div>
-</div>
+</section>
 
 <?php include('partials/footer.php'); ?>
