@@ -28,6 +28,8 @@
                     // Details available
                     $row = mysqli_fetch_assoc($res);
 
+                    $customer_name = $row['customer_name'];
+                    $title=$row['title']; 
                     $description = $row['description'];
                     $currency = $row['currency'];
                     $price = $row['price'];

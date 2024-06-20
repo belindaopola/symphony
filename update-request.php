@@ -5,54 +5,39 @@ include('partials/menu.php');
 if(isset($_GET['id'])) {
     // Get the request details
     $id = $_GET['id'];
-}
-// SQL Query to get the request details with joins
-$sql = "
-SELECT 
-    tbl_request.id,
-    tbl_request.request_date,
-    tbl_customer.customer_name,
-    tbl_product.title,
-    tbl_request.quotation,
-    tbl_request.customer_po,
-    tbl_request.costing_sheet,
-    tbl_request.currency,
-    tbl_request.price,
-    tbl_request.vat,
-    tbl_request.total,
-    tbl_request.status,
-    tbl_user.user_name
-FROM 
-    tbl_request
-JOIN 
-    tbl_customer ON tbl_request.customer_name = tbl_customer.id
-JOIN 
-    tbl_product ON tbl_request.title = tbl_product.id
-JOIN 
-    tbl_user ON tbl_request.sales_person = tbl_user.id
-WHERE 
-    tbl_request.id  =$id";
 
-// Execute Query
-$res = mysqli_query($conn, $sql);
-// Count Rows
-$count = mysqli_num_rows($res);
+    // SQL query to get the request details with joins for customer and salesperson names
+    $sql = "SELECT r.*, c.customer_name, p.title, u.user_name AS sales_person 
+            FROM tbl_request r
+            JOIN tbl_customer c ON r.customer_name = c.id
+            JOIN tbl_product p ON r.title = p.id
+            JOIN tbl_user u ON r.sales_person = u.id
+            WHERE r.id = $id";
+    // Execute query
+    $res = mysqli_query($conn, $sql);
+    // Count rows
+    $count = mysqli_num_rows($res);
+    
+    if($count == 1) {
+        // Detail Available
+        $row = mysqli_fetch_assoc($res);
 
-if($count == 1) {
-    // Detail Available
-    $row = mysqli_fetch_assoc($res);
-
-    $customer_name = $row['customer_name'];
-    $title=$row['title']; 
-    $description = $row['description'];
-    $quotation = $row['quotation'];            
-    $customer_po = $row['customer_po'];
-    $costing_sheet = $row['costing_sheet'];   
-    $currency = $row['currency'];
-    $price = $row['price'];
-    $vat = $row['vat'];
-    $sales_person = $row['sales_person']; 
-    $status = $row['status'];                                
+        $customer_name = $row['customer_name'];
+        $title = $row['title']; 
+        $description = $row['description'];
+        $quotation = $row['quotation'];            
+        $customer_po = $row['customer_po'];
+        $costing_sheet = $row['costing_sheet'];   
+        $currency = $row['currency'];
+        $price = $row['price'];
+        $vat = $row['vat'];
+        $sales_person = $row['sales_person']; 
+        $status = $row['status'];                                
+    } else {
+        // Redirect to Manage request
+        header('location:'.SITEURL.'manage-request.php');
+        exit();
+    }
 } else {
     // Redirect to Manage request
     header('location:'.SITEURL.'manage-request.php');
@@ -71,9 +56,6 @@ if (isset($_POST['submit'])) {
     $sales_person = mysqli_real_escape_string($conn, $_POST['sales_person']);
     $status = mysqli_real_escape_string($conn, $_POST['status']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
-
-    // Initialize file names
-    $quotation = $customer_po = $costing_sheet = "";
 
     // Function to handle file upload
     function handleFileUpload($file, $prefix, $conn) {
@@ -102,7 +84,7 @@ if (isset($_POST['submit'])) {
     $total = $amount + $vat;
 
     // Update the database with the file names
-    $sql = "INSERT INTO tbl_it_request SET 
+    $sql = "UPDATE tbl_it_request SET 
             customer_name='$customer_name', 
             title='$title', 
             description='$description', 
@@ -111,20 +93,29 @@ if (isset($_POST['submit'])) {
             vat='$vat', 
             total='$total', 
             sales_person='$sales_person', 
-            status='$status', 
-            quotation='$quotation', 
-            customer_po='$customer_po', 
-            costing_sheet='$costing_sheet'";
+            status='$status'";
+
+    if (!empty($quotation)) {
+        $sql .= ", quotation='$quotation'";
+    }
+    if (!empty($customer_po)) {
+        $sql .= ", customer_po='$customer_po'";
+    }
+    if (!empty($costing_sheet)) {
+        $sql .= ", costing_sheet='$costing_sheet'";
+    }
+
+    $sql .= " WHERE id=$id";
 
     // Execute query
     $res = mysqli_query($conn, $sql);
 
     if ($res == TRUE) {
-        $_SESSION['add'] = "<div class='success'>Request Added Successfully.</div>";
-        header("location:" . SITEURL . 'manage-it-request.php');
+        $_SESSION['add'] = "<div class='success'>Request Updated Successfully.</div>";
+        header("location:" . SITEURL . 'manage-request.php');
     } else {
-        $_SESSION['add'] = "<div class='error'>Failed to Add Request.</div>";
-        header("location:" . SITEURL . 'add-it-request.php');
+        $_SESSION['add'] = "<div class='error'>Failed to Update Request.</div>";
+        header("location:" . SITEURL . 'update-request.php?id=' . $id);
     }
     exit(); // Ensure no further code is executed
 }
@@ -132,7 +123,7 @@ if (isset($_POST['submit'])) {
 
 <section class="main-content">
     <div class="wrapper">
-        <h1 class="text-center row mb-4">Create New IT CSR</h1>
+        <h1 class="text-center row mb-4">Update CSR</h1>
 
         <?php 
             if (isset($_SESSION['add'])) {
@@ -152,7 +143,8 @@ if (isset($_POST['submit'])) {
                             $sql2 = "SELECT id, customer_name FROM tbl_customer";
                             $res2 = mysqli_query($conn, $sql2);
                             while ($row = mysqli_fetch_assoc($res2)) {
-                                echo "<option value='" . $row['id'] . "'>" . $row['customer_name'] . "</option>";
+                                $selected = ($row['customer_name'] == $customer_name) ? "selected" : "";
+                                echo "<option value='" . $row['id'] . "' $selected>" . $row['customer_name'] . "</option>";
                             }
                         ?>
                         <option value="new">Add New Customer</option>
@@ -177,7 +169,8 @@ if (isset($_POST['submit'])) {
                             $sql3 = "SELECT id, title FROM tbl_product";
                             $res3 = mysqli_query($conn, $sql3);
                             while ($row = mysqli_fetch_assoc($res3)) {
-                                echo "<option value='" . $row['id'] . "'>" . $row['title'] . "</option>";
+                                $selected = ($row['title'] == $title) ? "selected" : "";
+                                echo "<option value='" . $row['id'] . "' $selected>" . $row['title'] . "</option>";
                             }
                         ?>
                         <option value="new">Add New Product/Service</option>
@@ -196,7 +189,7 @@ if (isset($_POST['submit'])) {
             <div class="row mb-4">
                 <label for="description" class="col-sm-3 col-form-label">Description:</label>
                 <div class="col-sm-5">
-                    <textarea id="description" name="description" class="form-control"></textarea>
+                    <textarea id="description" name="description" class="form-control"><?php echo $description; ?></textarea>
                 </div>
             </div>
 
@@ -223,22 +216,22 @@ if (isset($_POST['submit'])) {
                 <label for="currency" class="col-sm-3 col-form-label">Currency:</label>
                 <div class="col-sm-5">
                     <select id="currency" name="currency" class="form-control">
-                        <option value="USD">USD</option>
-                        <option value="EUR">EUR</option>
-                        <option value="KES">KES</option>
+                        <option value="USD" <?php if ($currency == 'USD') echo 'selected'; ?>>USD</option>
+                        <option value="EUR" <?php if ($currency == 'EUR') echo 'selected'; ?>>EUR</option>
+                        <option value="KES" <?php if ($currency == 'KES') echo 'selected'; ?>>KES</option>
                     </select>
                 </div>
             </div>
             <div class="row mb-4">
                 <label for="amount" class="col-sm-3 col-form-label">Amount:</label>
                 <div class="col-sm-5">
-                    <input type="number" step="0.01" id="amount" name="amount" class="form-control" placeholder="Enter amount" required>
+                    <input type="number" step="0.01" id="amount" name="amount" class="form-control" value="<?php echo $price; ?>" placeholder="Enter amount" required>
                 </div>
             </div>
             <div class="row mb-4">
                 <label for="vat" class="col-sm-3 col-form-label">VAT:</label>
                 <div class="col-sm-5">
-                    <input type="number" step="0.01" id="vat" name="vat" class="form-control" placeholder="Enter VAT" required>
+                    <input type="number" step="0.01" id="vat" name="vat" class="form-control" value="<?php echo $vat; ?>" placeholder="Enter VAT" required>
                 </div>
             </div>
             <div class="row mb-4">
@@ -250,7 +243,8 @@ if (isset($_POST['submit'])) {
                             $sql4 = "SELECT id, user_name FROM tbl_user";
                             $res4 = mysqli_query($conn, $sql4);
                             while ($row = mysqli_fetch_assoc($res4)) {
-                                echo "<option value='" . $row['id'] . "'>" . $row['user_name'] . "</option>";
+                                $selected = ($row['user_name'] == $sales_person) ? "selected" : "";
+                                echo "<option value='" . $row['id'] . "' $selected>" . $row['user_name'] . "</option>";
                             }
                         ?>
                     </select>
@@ -260,15 +254,15 @@ if (isset($_POST['submit'])) {
                 <label for="status" class="col-sm-3 col-form-label">Status:</label>
                 <div class="col-sm-5">
                     <select id="status" name="status" class="form-control">
-                        <option value="Pending">Pending</option>
-                        <option value="Approved">Approved</option>
-                        <option value="Rejected">Rejected</option>
+                        <option value="Pending" <?php if ($status == 'Pending') echo 'selected'; ?>>Pending</option>
+                        <option value="Approved" <?php if ($status == 'Approved') echo 'selected'; ?>>Approved</option>
+                        <option value="Rejected" <?php if ($status == 'Rejected') echo 'selected'; ?>>Rejected</option>
                     </select>
                 </div>
             </div>
             <div class="row mb-4">
                 <div class="col-sm-offset-3 col-sm-5">
-                    <button type="submit" name="submit" class="btn btn-primary">Add Request</button>
+                    <button type="submit" name="submit" class="btn btn-primary">Update Request</button>
                 </div>
             </div>
         </form>
