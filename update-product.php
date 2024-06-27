@@ -120,7 +120,6 @@
                //2. Update the product in Database
                 $sql3 = "UPDATE tbl_product SET 
                     title = '$title',
-                    price = $price,
                     section_id = '$section',
                     featured = '$featured',
                     active = '$active'
