@@ -16,7 +16,7 @@
         <div class="row mb-4">
             <label for="inputName" class="col-sm-1 col-form-label">Name:</label>
                 <div class="col-sm-3">
-                <input type="text" id="name" name="name" placeholder="Enter Name" class="form-control">
+                <input type="text" id="name" name="user_name" placeholder="Enter Name" class="form-control">
                 </div>
             </div>
             <div class="row mb-4">
@@ -59,7 +59,7 @@
         //echo "Button Clicked";
 
         // 1. Get the Data from form
-        $name = $_POST['name'];
+        $name = $_POST['user_name'];
         $email = $_POST['email'];
         $role = $_POST['role'];
         $department = $_POST['department'];
@@ -67,7 +67,7 @@
 
         // 2. SQL Query to Save the data into database
         $sql = "INSERT INTO tbl_user SET 
-            name='$name',
+            user_name='$name',
             email='$email',
             role='$role',
             department='$department'

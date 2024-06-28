@@ -16,7 +16,7 @@
             $row2 = mysqli_fetch_assoc($res2);
     
             // Get the Individual Values of Selected customer
-            $name = $row2['name'];
+            $name = $row2['user_name'];
             $email = $row2['email'];
             $role = $row2['role'];
             $department = $row2['department'];
@@ -36,7 +36,7 @@
             <div class="row mb-4">
                     <label for="inputName" class="col-sm-1 col-form-label">Name:</label>
                     <div class="col-sm-3"> 
-                    <input type="text" id="name" name="name" value="<?php echo $name; ?>" class="form-control">
+                    <input type="text" id="name" name="user_name" value="<?php echo $name; ?>" class="form-control">
                     </div>
                 </div>
                 <div class="row mb-4">
@@ -74,14 +74,14 @@
     
                     // 1. Get all the details from the form
                     $id = $_POST['id'];
-                    $name = $_POST['name'];
+                    $name = $_POST['user_name'];
                     $email = $_POST['email'];
                     $role = $_POST['role'];
                     $department = $_POST['department'];
                                        
                    // 2. Update the customer in Database
                     $sql3 = "UPDATE tbl_user SET 
-                        name = '$name',
+                        user_name = '$name',
                         email = '$email',
                         role = '$role',
                         department = '$department'

@@ -17,7 +17,7 @@
 
         // Get the Individual Values of Selected product
         $title = $row2['title'];
-        $current_section = $row2['section_id'];
+        $section = $row2['section_id'];
         $featured = $row2['featured'];
         $active = $row2['active'];
     }
@@ -45,7 +45,7 @@
             <div class="row mb-4">
                 <label for="inputSection" class="col-sm-1 col-form-label">Section:</label>
                 <div class="col-sm-3"> 
-                    <select name="section" >
+                    <select name="section_id" >
                         <?php 
                             //Query to Get ACtive Categories
                             $sql = "SELECT * FROM tbl_section WHERE active='Yes'";
@@ -65,7 +65,7 @@
                                     
                                     //echo "<option value='$section_id'>$section_title</option>";
                                     ?>
-                                    <option <?php if($current_section==$section_id){echo "selected";} ?> value="<?php echo $section_id; ?>"><?php echo $section_title; ?></option>
+                                    <option <?php if($section==$section_id){echo "selected";} ?> value="<?php echo $section_id; ?>"><?php echo $section_title; ?></option>
                                     <?php
                                 }
                             }
@@ -112,15 +112,13 @@
                 //1. Get all the details from the form
                 $id = $_POST['id'];
                 $title = $_POST['title'];
-                $section = $_POST['section'];
-
+                $section = $_POST['section_id'];
                 $featured = $_POST['featured'];
                 $active = $_POST['active'];
                                    
                //2. Update the product in Database
                 $sql3 = "UPDATE tbl_product SET 
                     title = '$title',
-                    price = $price,
                     section_id = '$section',
                     featured = '$featured',
                     active = '$active'

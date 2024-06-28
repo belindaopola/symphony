@@ -20,7 +20,7 @@
         //Create SEssion Variable to Display Message
         $_SESSION['delete'] = "<div class='success'>Admin Deleted Successfully.</div>";
         //Redirect to Manage Admin Page
-        header('location:'.SITEURL.'admin/manage-admin.php');
+        header('location:'.SITEURL.'manage-admin.php');
     }
     else
     {

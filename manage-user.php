@@ -40,7 +40,7 @@
                         $sn = 1; // Serial number counter
                         while($row = mysqli_fetch_assoc($res)) {
                             $id = $row['id'];
-                            $name = $row['name'];
+                            $name = $row['user_name'];
                             $email = $row['email'];
                             $role = $row['role'];
                             $department = $row['department'];
