@@ -57,16 +57,12 @@ if (isset($_POST['submit'])) {
     $status = mysqli_real_escape_string($conn, $_POST['status']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
 
-    // Function to handle file upload
-    function handleFileUpload($file, $prefix, $conn) {
+    // Function to handle file uploads and overwrite existing files
+    function handleFileUpload($file, $prefix, $id) {
         if ($file['error'] === UPLOAD_ERR_OK) {
             $file_name = $file['name'];
             $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
-            $last_id_query = "SELECT MAX(id) AS last_id FROM tbl_it_request";
-            $result = mysqli_query($conn, $last_id_query);
-            $row = mysqli_fetch_assoc($result);
-            $last_id = $row['last_id'] ?? 0;
-            $new_name = $prefix . "_TS" . date("Y") . "_" . sprintf('%03d', $last_id + 1) . '.' . $file_ext;
+            $new_name = $prefix . "_TS" . date("Y") . "_" . sprintf('%03d', $id) . '.' . $file_ext;
             $upload_path = 'uploads/files_ts/' . strtolower($prefix) . '/' . $new_name;
             move_uploaded_file($file['tmp_name'], $upload_path);
             return $new_name;
@@ -75,16 +71,19 @@ if (isset($_POST['submit'])) {
         }
     }
 
-    // Handle file uploads
-    $quotation = handleFileUpload($_FILES['quotation'], 'Quotation', $conn);
-    $customer_po = handleFileUpload($_FILES['customer_po'], 'Customer_PO', $conn);
-    $costing_sheet = handleFileUpload($_FILES['costing_sheet'], 'Costing', $conn);
+    // Handle file uploads and overwrite existing files
+    $quotation = handleFileUpload($_FILES['quotation'], 'Quotation', $id);
+    $customer_po = handleFileUpload($_FILES['po'], 'Customer_PO', $id);
+    $costing_sheet = handleFileUpload($_FILES['costing_sheet'], 'Costing', $id);
+
+    // Debugging the uploaded files
+    var_dump($quotation, $customer_po, $costing_sheet);
 
     // Calculate total
     $total = $amount + $vat;
 
     // Update the database with the file names
-    $sql = "UPDATE tbl_it_request SET 
+    $sql = "UPDATE tbl_request SET 
             customer_name='$customer_name', 
             title='$title', 
             description='$description', 
@@ -253,10 +252,11 @@ if (isset($_POST['submit'])) {
             <div class="row mb-4">
                 <label for="status" class="col-sm-3 col-form-label">Status:</label>
                 <div class="col-sm-5">
-                    <select id="status" name="status" class="form-control">
-                        <option value="Pending" <?php if ($status == 'Pending') echo 'selected'; ?>>Pending</option>
-                        <option value="Approved" <?php if ($status == 'Approved') echo 'selected'; ?>>Approved</option>
-                        <option value="Rejected" <?php if ($status == 'Rejected') echo 'selected'; ?>>Rejected</option>
+                <select name="status" class="form-control">
+                        <option <?php if($status=="requested"){echo "selected";} ?> value="requested">requested</option>
+                        <option <?php if($status=="On Delivery"){echo "selected";} ?> value="On Delivery">On Delivery</option>
+                        <option <?php if($status=="Delivered"){echo "selected";} ?> value="Delivered">Delivered</option>
+                        <option <?php if($status=="Cancelled"){echo "selected";} ?> value="Cancelled">Cancelled</option>
                     </select>
                 </div>
             </div>
