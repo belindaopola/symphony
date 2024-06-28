@@ -21,7 +21,7 @@
         ?>
 
         <!-- Button to Add New CSR -->
-        <a href="add-it-request.php" class="btn btn-primary col-sm-1 row mb-4">New CSR</a>
+        <a href="add-request.php" class="btn btn-primary col-sm-1 row mb-4">New CSR</a>
 
         <table class="tbl-full">
             <tr>
@@ -44,17 +44,15 @@
             <?php 
                 // Get all the requests from the database with joins
                 $sql = "
-                    SELECT 
-                        tbl_request.id, tbl_request.request_date, tbl_customer.customer_name AS customer_name, 
-                        tbl_product.title AS title, tbl_request.quotation, tbl_request.customer_po, 
-                        tbl_request.costing_sheet, tbl_request.currency, tbl_request.price, 
-                        tbl_request.vat, tbl_request.total, tbl_request.status, 
-                        tbl_user.user_name AS salesperson
-                    FROM tbl_request
-                    JOIN tbl_customer ON tbl_request.customer_name = tbl_customer.id
-                    JOIN tbl_product ON tbl_request.title = tbl_product.id
-                    JOIN tbl_user ON tbl_request.sales_person = tbl_user.id
-                    ORDER BY tbl_request.id ASC
+                    SELECT * FROM tbl_request
+                    JOIN 
+                        tbl_customer ON tbl_request.customer_name = tbl_customer.id
+                    JOIN 
+                        tbl_product ON tbl_request.title = tbl_product.id
+                    JOIN 
+                        tbl_user ON tbl_request.sales_person = tbl_user.id
+                    ORDER BY 
+                        tbl_request.id ASC
                 ";
 
                 // Execute Query
@@ -83,7 +81,7 @@
                             $vat = $row['vat'];
                             $total = $row['total'];
                             $status = $row['status'];
-                            $salesperson = $row['salesperson'];
+                            $salesperson = $row['user_name'];
                             ?>
 
                             <tr>
@@ -95,15 +93,10 @@
                                     <?php
                                         // Check whether quotation attachment is available or not
                                         if ($quotation != "") {
-                                            // Display quotation link
-                                            $quotation_path = SITEURL . "uploads/files_ts/quotation/" . $quotation;
-                                            if(file_exists("uploads/files_ts/quotation/" . $quotation)) {
-                                                ?>
-                                                <a href="<?php echo $quotation_path; ?>" target="_blank"><?php echo $quotation; ?></a>
-                                                <?php
-                                            } else {
-                                                echo "<div class='error'>Quotation file does not exist.</div>";
-                                            }
+                                            // Display quotation image
+                                            ?>
+                                            <a href="<?php echo SITEURL; ?>uploads/files_ts/quotation/<?php echo $quotation; ?>" target="_blank">View Quotation</a>
+                                        <?php
                                         } else {
                                             echo "<div class='error'>Please attach quotation.</div>";
                                         }
@@ -111,42 +104,32 @@
                                 </td>
 
                                 <td>
+                                <?php
+                                    // Check whether purchase order attachment is available or not
+                                    if ($customer_po != "") {
+                                        // Display purchase order image
+                                        ?>
+                                        <a href="<?php echo SITEURL; ?>uploads/files_ts/po/<?php echo $customer_po; ?>" target="_blank">View Purchase Order</a>
                                     <?php
-                                        // Check whether purchase order attachment is available or not
-                                        if ($customer_po != "") {
-                                            // Display purchase order link
-                                            $po_path = SITEURL . "uploads/files_ts/po/" . $customer_po;
-                                            if(file_exists("uploads/files_ts/po/" . $customer_po)) {
-                                                ?>
-                                                <a href="<?php echo $po_path; ?>" target="_blank"><?php echo $customer_po; ?></a>
-                                                <?php
-                                            } else {
-                                                echo "<div class='error'>Purchase order file does not exist.</div>";
-                                            }
-                                        } else {
-                                            echo "<div class='error'>Please attach purchase order.</div>";
-                                        }
-                                    ?>
-                                </td>
+                                    } else {
+                                        echo "<div class='error'>Please attach purchase order.</div>";
+                                    }
+                                ?>
+                            </td>
 
-                                <td>
+                            <td>
+                                <?php
+                                    // Check whether costing sheet attachment is available or not
+                                    if ($costing_sheet != "") {
+                                        // Display costing sheet image
+                                        ?>
+                                        <a href="<?php echo SITEURL; ?>uploads/files_ts/costing/<?php echo $costing_sheet; ?>" target="_blank">View Costing Sheet</a>
                                     <?php
-                                        // Check whether costing sheet attachment is available or not
-                                        if ($costing_sheet != "") {
-                                            // Display costing sheet link
-                                            $costing_path = SITEURL . "uploads/files_ts/costing/" . $costing_sheet;
-                                            if(file_exists("uploads/files_ts/costing/" . $costing_sheet)) {
-                                                ?>
-                                                <a href="<?php echo $costing_path; ?>" target="_blank"><?php echo $costing_sheet; ?></a>
-                                                <?php
-                                            } else {
-                                                echo "<div class='error'>Costing sheet file does not exist.</div>";
-                                            }
-                                        } else {
-                                            echo "<div class='error'>Please attach costing sheet.</div>";
-                                        }
-                                    ?>
-                                </td>
+                                    } else {
+                                        echo "<div class='error'>Please attach costing sheet.</div>";
+                                    }
+                                ?>
+                            </td>
                                 <td><?php echo $currency; ?></td>
                                 <td><?php echo $price; ?></td>
                                 <td><?php echo $vat; ?></td>
