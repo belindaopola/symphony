@@ -33,13 +33,14 @@
                 }
             ?>
 
-            <table class="tbl-full">
+            <div class="table-responsive" style="overflow: auto; max-height: 570px;">
+            <table class="tbl-full" style="min-width: 1000px;">
                 <tr>
-                    <th>S.N.</th>
-                    <th>Title</th>
-                    <th>Featured</th>
-                    <th>Active</th>
-                    <th>Actions</th>
+                    <th style="width: 30px;">S.N.</th>
+                    <th style="width: 280px;">Title</th>
+                    <th style="width: 20px;">Featured</th>
+                    <th style="width: 20px;">Active</th>
+                    <th style="width: 130px;">Actions</th>
                 </tr>
 
                 <?php 
@@ -89,6 +90,7 @@
                     }
                 ?>
             </table>
+        </div>
         </div>
     </div>
     

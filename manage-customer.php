@@ -18,16 +18,17 @@
             <!-- Button to Add New Customer -->
             <a href="<?php echo SITEURL; ?>add-customer.php" class="btn btn-primary col-sm-1.2 row mb-4">Add Customer</a>
         
-            <table class="tbl-full">
+            <div class="table-responsive" style="overflow: auto; max-height: 570px;">
+            <table class="tbl-full" style="min-width: 1000px;">
                 <tr>
-                    <th>S.N.</th>
-                    <th>Customer Name</th>
-                    <th>Contact</th>
-                    <th>Email</th>
-                    <th>Address</th>
-                    <th>Featured</th>
-                    <th>Active</th>
-                    <th>Actions</th>
+                    <th style="width: 50px;">S.N.</th>
+                    <th style="width: 130px;">Customer Name</th>
+                    <th style="width: 130px;">Contact</th>
+                    <th style="width: 130px;">Email</th>
+                    <th style="width: 130px;">Address</th>
+                    <th style="width: 30px;">Featured</th>
+                    <th style="width: 30px;">Active</th>
+                    <th style="width: 220px;">Actions</th>
                 </tr>
     
                 <?php 
@@ -76,6 +77,7 @@
                     }
                 ?>
             </table>
+        </div>
         </div>
     </div>
     

@@ -23,22 +23,23 @@
         <!-- Button to Add New CRS -->
         <a href="add-it-request.php" class="btn btn-primary col-sm-1 row mb-4">New CSR</a>
 
-        <table class="tbl-full">
+        <div class="table-responsive" style="overflow: auto; max-height: 564px;">
+        <table class="tbl-full" style="min-width: 1000px;">
             <tr>
-                <th>CSR Ref.</th>
-                <th>Request Date</th>
-                <th>Customer Name</th>
-                <th>Title</th>
-                <th>Quotation</th>
-                <th>Customer PO</th>
-                <th>Costing Sheet</th>
-                <th>Currency</th>
-                <th>Price</th>
-                <th>VAT</th>
-                <th>Total</th>
-                <th>Status</th>
-                <th>Salesperson</th>
-                <th>Actions</th>
+                <th style="width: 130px;">CSR Ref.</th>
+                <th style="width: 130px;">Request Date</th>
+                <th style="width: 200px;">Customer Name</th>
+                <th style="width: 200px;">Title</th>
+                <th style="width: 150px;">Quotation</th>
+                <th style="width: 150px;">Customer PO</th>
+                <th style="width: 150px;">Costing Sheet</th>
+                <th style="width: 100px;">Currency</th>
+                <th style="width: 100px;">Price</th>
+                <th style="width: 100px;">VAT</th>
+                <th style="width: 100px;">Total</th>
+                <th style="width: 150px;">Status</th>
+                <th style="width: 120px;">Salesperson</th>
+                <th style="width: 120px;">Actions</th>
             </tr>
 
             <?php 
@@ -146,6 +147,7 @@
             ?>
 
         </table>
+    </div>
     </div>
 </div>
 

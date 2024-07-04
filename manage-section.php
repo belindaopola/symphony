@@ -53,14 +53,15 @@
             <a href="<?php echo SITEURL; ?>add-section.php" class="btn btn-primary col-sm-1.2 row mb-4">Add section</a>
 
 
-            <table class="tbl-full">
+            <div class="table-responsive" style="overflow: auto; max-height: 570px;">
+            <table class="tbl-full" style="min-width: 1000px;">
                 <tr>
-                    <th>S.N.</th>
-                    <th>Type</th>
-                    <th>Image</th>
-                    <th>Featured</th>
-                    <th>Active</th>
-                    <th>Actions</th>
+                    <th style="width: 30px;">S.N.</th>
+                    <th style="width: 150px;">Type</th>
+                    <th style="width: 100px;">Image</th>
+                    <th style="width: 30px;">Featured</th>
+                    <th style="width: 30px;">Active</th>
+                    <th style="width: 100px;">Actions</th>
                 </tr>
 
                 <?php 
@@ -144,6 +145,7 @@
                 ?>
                 
             </table>
+        </div>
         </div>
     </div>
     
