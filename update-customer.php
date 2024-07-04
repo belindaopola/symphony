@@ -80,7 +80,7 @@
 
 <div class="main-content">
     <div class="wrapper">
-        <h1 class="row mb-4">Update Customer</h1>
+        <h2 class="row mb-4">Update Customer</h2>
 
         <form action="" method="POST" enctype="multipart/form-data">
             <div class="row mb-4">

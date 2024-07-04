@@ -2,7 +2,7 @@
 
     <div class="main-content">
         <div class="wrapper">
-            <h1 class="row mb-4">Manage Product</h1>
+            <h2 class="row mb-4">Manage Product</h2>
     
             <!-- Button to Add Admin -->
             <a href="<?php echo SITEURL; ?>add-product.php" class="btn btn-primary col-sm-1.2 row mb-4">Add Product/Service</a>

@@ -2,7 +2,7 @@
 
     <div class="main-content">
         <div class="wrapper">
-            <h1 class="row mb-4">Manage Users</h1>
+            <h2 class="row mb-4">Manage Users</h2>
     
             <?php 
                 // Display session messages
