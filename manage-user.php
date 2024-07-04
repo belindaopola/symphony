@@ -25,6 +25,7 @@
                     <th>Email</th>
                     <th>Role</th>
                     <th>Department</th>
+                    <th>Actions</th>
                 </tr>
     
                 <?php 
