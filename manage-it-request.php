@@ -21,7 +21,7 @@
         ?>
 
         <!-- Button to Add New CRS -->
-        <a href="add-it-request.php" class="btn btn-primary col-sm-1 row mb-4">New CSR</a>
+        <a href="add-it-request.php" class="btn btn-primary col-sm-0.2 row mb-4">New CSR</a>
 
         <div class="table-responsive" style="overflow: auto; max-height: 564px;">
         <table class="tbl-full" style="min-width: 1000px;">
