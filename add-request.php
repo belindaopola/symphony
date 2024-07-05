@@ -94,7 +94,7 @@ if (isset($_POST['submit'])) {
 
 <section class="main-content">
     <div class="wrapper">
-        <h2 class="text-center row mb-4">Create New TS CSR</h2>
+        <h4 class="text-center row mb-4">Create New TS CSR</h4>
 
         <?php 
             if (isset($_SESSION['add'])) {

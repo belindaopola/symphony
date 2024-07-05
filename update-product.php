@@ -31,7 +31,7 @@
 
 <div class="main-content">
     <div class="wrapper">
-        <h2 class="row mb-4">Update Product/Service</h2>
+        <h4 class="row mb-4">Update Product/Service</h4>
 
         <form action="" method="POST" enctype="multipart/form-data">  
             

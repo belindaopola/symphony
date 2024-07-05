@@ -2,7 +2,7 @@
 
     <div class="main-content">
         <div class="wrapper">
-            <h2 class="row mb-4">Update Admin</h2>
+            <h4 class="row mb-4">Update Admin</h4>
         
             <?php 
                 //1. Get the ID of Selected Admin

@@ -2,7 +2,7 @@
 
 <div class="main-content">
     <div class="wrapper">
-        <h2 class="row mb-4">Update IT Request</h2>
+        <h4 class="row mb-4">Update IT Request</h4>
 
         <?php 
         

@@ -2,7 +2,7 @@
 
     <div class="main-content">
         <div class="wrapper">
-            <h2 class="row mb-4">Manage Section</h2>
+            <h4 class="row mb-4">Manage Section</h4>
     
             <?php 
                 if(isset($_SESSION['add']))

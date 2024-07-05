@@ -30,7 +30,7 @@
     
     <div class="main-content">
         <div class="wrapper">
-            <h2 class="row mb-4">Update User</h2>
+            <h4 class="row mb-4">Update User</h4>
 
             <form action="" method="POST" enctype="multipart/form-data">
             <div class="row mb-4">
