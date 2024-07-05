@@ -146,3 +146,30 @@ table tr td{
     border: none;
     border-radius: 5px;
 }
+
+/* CSS for Tables */
+.tbl-full {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1000px;
+}
+
+.tbl-full th, .tbl-full td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
+    font-size: 15px;
+}
+
+.tbl-full tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray */
+}
+
+.tbl-full tr:nth-child(odd) {
+    background-color: #ffffff; /* White */
+}
+
+.tbl-full th {
+    background-color: #3498db; /* Optional: Header background color */
+    color: white; /* Optional: Header text color */
+}
