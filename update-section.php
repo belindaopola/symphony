@@ -2,7 +2,7 @@
 
 <div class="main-content">
     <div class="wrapper">
-        <h4 class="row mb-4">Update section</h4>
+        <h2 class="row mb-4">Update section</h2>
 
         <?php 
             // Check whether the id is set or not

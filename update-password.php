@@ -2,7 +2,7 @@
 
     <div class="main-content">
         <div class="wrapper">
-            <h4 class="row mb-4">Change Password</h4>
+            <h2 class="row mb-4">Change Password</h2>
     
             <?php 
                 if(isset($_GET['id']))

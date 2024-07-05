@@ -122,7 +122,7 @@ if (isset($_POST['submit'])) {
 
 <section class="main-content">
     <div class="wrapper">
-        <h4 class="text-center row mb-4">Update CSR</h4>
+        <h2 class="text-center row mb-4">Update CSR</h2>
 
         <?php 
             if (isset($_SESSION['add'])) {

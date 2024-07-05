@@ -4,7 +4,7 @@
         <!-- Main Content Section Starts -->
         <div class="main-content">
             <div class="wrapper">
-                <h4>Dashboard</h4>
+                <h2>Dashboard</h2>
                 <br><br>
                 <?php 
                     if(isset($_SESSION['login']))
@@ -26,7 +26,7 @@
                         $count = mysqli_num_rows($res);
                     ?>
 
-                    <h4><?php echo $count; ?></h4>
+                    <h2><?php echo $count; ?></h2>
                     <br />
                     Categories
                 </div>
@@ -42,7 +42,7 @@
                         $count2 = mysqli_num_rows($res2);
                     ?>
 
-                    <h4><?php echo $count2; ?></h4>
+                    <h2><?php echo $count2; ?></h2>
                     <br />
                     Products
                 </div>
@@ -58,7 +58,7 @@
                         $count3 = mysqli_num_rows($res3);
                     ?>
 
-                    <h4><?php echo $count3; ?></h4>
+                    <h2><?php echo $count3; ?></h2>
                     <br />
                     Total requests
                 </div>
@@ -81,7 +81,7 @@
 
                     ?>
 
-                    <h4>$<?php echo $total_revenue; ?></h4>
+                    <h2>$<?php echo $total_revenue; ?></h2>
                     <br />
                     Revenue Generated
                 </div>
