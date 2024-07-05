@@ -2,7 +2,7 @@
 
 <div class="main-content">
     <div class="wrapper" style="width:100%">
-        <h2 class="row mb-4">IT Services</h2>
+        <h4 class="row mb-4">IT Services</h4>
         <?php 
             if(isset($_SESSION['add'])) {
                 echo $_SESSION['add']; // Displaying Session Message
