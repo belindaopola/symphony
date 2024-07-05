@@ -61,7 +61,7 @@
                     <th style="width: 100px;">Image</th>
                     <th style="width: 30px;">Featured</th>
                     <th style="width: 30px;">Active</th>
-                    <th style="width: 100px;">Actions</th>
+                    <th style="width: 130px;">Actions</th>
                 </tr>
 
                 <?php 
