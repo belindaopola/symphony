@@ -21,25 +21,25 @@
         ?>
 
         <!-- Button to Add New CSR -->
-        <a href="add-request.php" class="btn btn-primary col-sm-1 row mb-4">New CSR</a>
+        <a href="add-request.php" class="btn btn-primary col-sm-0.2 row mb-4">New CSR</a>
 
         <div class="table-responsive" style="overflow: auto; max-height: 564px;">
         <table class="tbl-full" style="min-width: 1000px;">
             <tr>
-                <th style="width: 130px;">CSR Ref.</th>
-                <th style="width: 130px;">Request Date</th>
-                <th style="width: 200px;">Customer Name</th>
-                <th style="width: 200px;">Title</th>
-                <th style="width: 150px;">Quotation</th>
-                <th style="width: 150px;">Customer PO</th>
-                <th style="width: 150px;">Costing Sheet</th>
-                <th style="width: 100px;">Currency</th>
-                <th style="width: 100px;">Price</th>
-                <th style="width: 100px;">VAT</th>
-                <th style="width: 100px;">Total</th>
-                <th style="width: 150px;">Status</th>
-                <th style="width: 120px;">Salesperson</th>
-                <th style="width: 120px;">Actions</th>
+                <th style="width: 130px; font-size: 15px;">CSR Ref.</th>
+                <th style="width: 130px; font-size: 15px;">Request Date</th>
+                <th style="width: 200px; font-size: 15px;">Customer Name</th>
+                <th style="width: 200px; font-size: 15px;">Title</th>
+                <th style="width: 150px; font-size: 15px;">Quotation</th>
+                <th style="width: 150px; font-size: 15px;">Customer PO</th>
+                <th style="width: 150px; font-size: 15px;">Costing Sheet</th>
+                <th style="width: 100px; font-size: 15px;">Currency</th>
+                <th style="width: 100px; font-size: 15px;">Price</th>
+                <th style="width: 100px; font-size: 15px;">VAT</th>
+                <th style="width: 100px; font-size: 15px;">Total</th>
+                <th style="width: 150px; font-size: 15px;">Status</th>
+                <th style="width: 120px; font-size: 15px;">Salesperson</th>
+                <th style="width: 120px; font-size: 15px;">Actions</th>
             </tr>
 
             <?php 
@@ -86,11 +86,11 @@
                             ?>
 
                             <tr>
-                                <td><?php echo "TS" . date("Y", strtotime($request_date)) . "/" . sprintf('%03d', $sn++); ?></td> <!-- Modify to pick the request_date not current year-->
-                                <td><?php echo $request_date; ?></td>
-                                <td><?php echo $customer_name; ?></td>
-                                <td><?php echo $title; ?></td>
-                                <td>
+                                <td style="font-size: 15px;"><?php echo "TS" . date("Y", strtotime($request_date)) . "/" . sprintf('%03d', $sn++); ?></td> <!-- Modify to pick the request_date not current year-->
+                                <td style="font-size: 15px;"><?php echo $request_date; ?></td>
+                                <td style="font-size: 15px;"><?php echo $customer_name; ?></td>
+                                <td style="font-size: 15px;"><?php echo $title; ?></td>
+                                <td style="font-size: 15px;">
                                     <?php
                                         // Check whether quotation attachment is available or not
                                         if ($quotation != "") {
@@ -104,7 +104,7 @@
                                     ?>
                                 </td>
 
-                                <td>
+                                <td style="font-size: 15px;">
                                 <?php
                                     // Check whether purchase order attachment is available or not
                                     if ($customer_po != "") {
@@ -118,7 +118,7 @@
                                 ?>
                             </td>
 
-                            <td>
+                            <td style="font-size: 15px;">
                                 <?php
                                     // Check whether costing sheet attachment is available or not
                                     if ($costing_sheet != "") {
@@ -131,14 +131,14 @@
                                     }
                                 ?>
                             </td>
-                                <td><?php echo $currency; ?></td>
-                                <td><?php echo $price; ?></td>
-                                <td><?php echo $vat; ?></td>
-                                <td><?php echo $total; ?></td>
-                                <td><?php echo $status; ?></td>
-                                <td><?php echo $salesperson; ?></td>
+                                <td style="font-size: 15px;"><?php echo $currency; ?></td>
+                                <td style="font-size: 15px;"><?php echo $price; ?></td>
+                                <td style="font-size: 15px;"><?php echo $vat; ?></td>
+                                <td style="font-size: 15px;"><?php echo $total; ?></td>
+                                <td style="font-size: 15px;"><?php echo $status; ?></td>
+                                <td style="font-size: 15px;"><?php echo $salesperson; ?></td>
                                 <td>
-                                    <a href="<?php echo SITEURL; ?>update-request.php?id=<?php echo $id; ?>" class="btn btn-secondary col-sm-2.5">Update request</a>
+                                    <a style="font-size: 15px;" href="<?php echo SITEURL; ?>update-request.php?id=<?php echo $id; ?>" class="btn btn-secondary col-sm-2.5">Update request</a>
                                 </td>
                             </tr>
 
